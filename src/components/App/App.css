@@ -1,0 +1,19 @@
+.body {
+  background-color: #FFF;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+}
+
+.mainpage {
+  min-height: 100vh;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-items: center;
+  color: #000;
+}
+
