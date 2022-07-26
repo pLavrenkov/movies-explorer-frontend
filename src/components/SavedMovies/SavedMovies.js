@@ -1,6 +1,14 @@
+import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
+
 function SavedMovies() {
   return (
-    <div>saved movies</div>
+    <>
+      <Header />
+      <MoviesCardList />
+      <Footer />
+    </>
   )
 }
 

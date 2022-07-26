@@ -14,7 +14,6 @@ function App() {
   return (
     <div className='body'>
       <div className='mainpage'>
-        <Header />
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/movies" element={<Movies />} />
@@ -23,7 +22,6 @@ function App() {
           <Route path="/signup" element={<Register />} />
           <Route path="/signin" element={<Login />} />
         </Routes>
-        <Footer />
       </div>
     </div>
   );

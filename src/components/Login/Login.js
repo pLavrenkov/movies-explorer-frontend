@@ -1,6 +1,12 @@
+import Header from "../Header/Header";
+import Navigation from "../Navigation/Navigation";
+
 function Login() {
   return (
-    <div>login</div>
+    <>
+      <Header />
+      <div>login</div>
+    </>
   )
 }
 

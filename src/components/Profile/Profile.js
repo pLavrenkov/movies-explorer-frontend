@@ -1,6 +1,11 @@
+import Header from "../Header/Header";
+
 function Profile() {
   return (
-    <div>profile</div>
+    <>
+      <Header />
+      Profile
+    </>
   )
 }
 
