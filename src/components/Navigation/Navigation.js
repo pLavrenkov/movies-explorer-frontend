@@ -22,7 +22,7 @@ function Navigation() {
       {(location.pathname === '/') &&
         <nav className='navigation__bar navigation__bar_type_main-page'>
           <Link to={'/signup'} className='navigation__link navigation__link_type_register'>
-            <span className='navigation__link-name'>Регистрация</span>
+            <span className='navigation__link-name navigation__link-name_type_register'>Регистрация</span>
           </Link>
           <Link to={'/signin'} className='navigation__link navigation__link_type_login'>
             <button className='navigation__login-button'>Войти</button>
@@ -33,6 +33,9 @@ function Navigation() {
         <nav className='navigation__bar navigation__bar_type_auth-page'>
           <ul className={isNavOpened ? 'navigation__list navigation__list_opened' : 'navigation__list'}>
             <button className={isNavOpened ? 'navigatiion__close-button' : 'navigatiion__close-button navigation__close-button_displayed'} onClick={handleNavClose} ></button>
+            <Link to={'/'} className='navigation__link navigation__link_type_main-page'>
+              <span className='navigation__link-name'>Главная</span>
+            </Link>
             <Link to={'/movies'} className='navigation__link navigation__link_type_movies'>
               <span className='navigation__link-name'>Фильмы</span>
             </Link>
@@ -40,7 +43,7 @@ function Navigation() {
               <span className='navigation__link-name'>Сохраненные фильмы</span>
             </Link>
             <Link to={'/profile'} className='navigation__link navigation__link_type_profile' onClick={handleNavClose}>
-              <span className='navigation__link-name'>Аккаунт</span>
+              <span className='navigation__link-name navigation__link-name_type_profile'>Аккаунт</span>
               <button className='navigation__account-button' onClick={handleNavClose}></button>
             </Link>
           </ul>

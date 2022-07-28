@@ -15,5 +15,6 @@
   box-sizing: border-box;
   align-items: center;
   color: #000;
+  position: relative;
 }
 
