@@ -1,16 +1,18 @@
-import { Children } from "react";
 import AboutProject from "../AboutProject/AboutProject";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-import Navigation from "../Navigation/Navigation";
+import Promo from "../Promo/Promo";
 
 function Main() {
   return (
-    <>
+    <section className="main">
       <Header />
-      <AboutProject />
+      <section className="main__body">
+        <Promo />
+        <AboutProject />
+      </section>
       <Footer />
-    </>
+    </section>
   )
 }
 
