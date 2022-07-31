@@ -1,7 +1,7 @@
 .form {
   width: 100%;
   display: grid;
-  grid-auto-rows: repeat(4, minmax(89px, auto));
+  grid-template-rows: repeat(4, minmax(89px, auto));
   grid-gap: 10px;
 }
 
@@ -32,6 +32,7 @@
 }
 
 .form__button {
+  grid-row: 4;
   margin-top: 69px;
   padding: 0;
   background-color: #3456F3;

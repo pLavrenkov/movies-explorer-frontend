@@ -1,5 +1,6 @@
 .register {
   width: 396px;
+  padding-top: 56px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -37,9 +38,16 @@
   opacity: 70%;
 }
 
+@media screen and (max-width: 1023px) {
+  .register {
+    padding-top: 228px;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .register {
-    width: 230px;
+    width: 260px;
+    padding-top: 42px;
   }
 
   .register__nav {
