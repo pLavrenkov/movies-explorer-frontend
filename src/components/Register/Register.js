@@ -10,7 +10,7 @@ function Register() {
     <section className='register'>
       <Header classNonAuth={nonAuthClassHeader} />
       <h1 className='register__title'>Добро пожаловать!</h1>
-      <Form name={'register'} button={'Зарегистрироваться'}>
+      <Form name={'register'} button={'Зарегистрироваться'} linkQuestion={'Уже зарегистрированы?'} linkpath={'/signin'} linkname={'Войти'}>
         <p className='form__set'>
           <label htmlFor='register-name' className='form__label'>Имя</label>
           <input id='register-name' type='text' className='form__input'></input>
@@ -27,10 +27,6 @@ function Register() {
           <span className='form__error'>Ошибка</span>
         </p>
       </Form>
-      <nav className='register__nav'>
-        <p className='register__subtitle'>Уже зарегистрированы?</p>
-        <Link to={'/signin'} className='register__link'>Войти</Link>
-      </nav>
     </section>
   )
 }

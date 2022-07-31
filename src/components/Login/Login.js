@@ -10,7 +10,7 @@ function Login() {
     <section className='login'>
       <Header classNonAuth={nonAuthClassHeader} />
       <h1 className='login__title'>Рады видеть!</h1>
-      <Form name={'login'} button={'Зарегистрироваться'}>
+      <Form name={'login'} button={'Войти'} linkQuestion={'Еще не зарегистрированы?'} linkpath={'/signup'} linkname={'Зарегистрироваться'}>
         <p className='form__set'>
           <label htmlFor='login-email' className='form__label'>E-mail</label>
           <input id='login-email' type='email' className='form__input'></input>
@@ -22,10 +22,6 @@ function Login() {
           <span className='form__error'>Ошибка</span>
         </p>
       </Form>
-      <nav className='login__nav'>
-        <p className='login__subtitle'>Еще не зарегистрированы?</p>
-        <Link to={'/signup'} className='login__link'>Регистрация</Link>
-      </nav>
     </section>
   )
 }
