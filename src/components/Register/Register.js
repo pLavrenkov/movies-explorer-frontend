@@ -12,17 +12,17 @@ function Register() {
       <h1 className='register__title'>Добро пожаловать!</h1>
       <Form name={'register'} button={'Зарегистрироваться'}>
         <p className='form__set'>
-          <label for='register-name' className='form__label'>Имя</label>
+          <label htmlFor='register-name' className='form__label'>Имя</label>
           <input id='register-name' type='text' className='form__input'></input>
           <span className='form__error'></span>
         </p>
         <p className='form__set'>
-          <label for='register-email' className='form__label'>E-mail</label>
+          <label htmlFor='register-email' className='form__label'>E-mail</label>
           <input id='register-email' type='email' className='form__input'></input>
           <span className='form__error'></span>
         </p>
         <p className='form__set'>
-          <label for='register-password' className='form__label'>Пароль</label>
+          <label htmlFor='register-password' className='form__label'>Пароль</label>
           <input id='register-password' type='password' className='form__input'></input>
           <span className='form__error'>Ошибка</span>
         </p>

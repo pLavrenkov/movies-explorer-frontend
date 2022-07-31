@@ -1,7 +1,7 @@
 .form {
   width: 100%;
   display: grid;
-  grid-auto-rows: auto;
+  grid-auto-rows: repeat(4, minmax(89px, auto));
   grid-gap: 10px;
 }
 
@@ -40,10 +40,16 @@
   font-size: 14px;
   border: none;
   border-radius: 3px;
-  height: 46px;
+  height: 45px;
 }
 
 .form__button:hover {
   cursor: pointer;
   opacity: 70%;
+}
+
+@media screen and (max-width: 767px) {
+  .form__button {
+    font-size: 12px;
+  }
 }

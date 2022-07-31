@@ -19,6 +19,11 @@
   grid-column: 1, 2;
 }
 
+.header__logo:hover {
+  cursor: pointer;
+  opacity: 70%;
+}
+
 @media screen and (max-width: 767px) {
   .header {
     padding: 0px 14px 0px;

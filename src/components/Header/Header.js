@@ -3,7 +3,7 @@ import Navigation from "../Navigation/Navigation";
 import logo from '../../images/logo.svg'
 
 function Header(classNonAuth) {
-const location = useLocation();
+  const location = useLocation();
 
   return (
     <header className={(location.pathname === '/signin' || location.pathname === '/signup') ? classNonAuth.classNonAuth : 'header'}>
