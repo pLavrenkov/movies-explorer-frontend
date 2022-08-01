@@ -13,31 +13,6 @@
   font-size: 24px;
 }
 
-.login__nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 16px 0 70px;
-  font-weight: 400;
-  font-size: 14px;
-}
-
-.login__subtitle {
-  margin: 0;
-  padding-right: 8px;
-  color: #A0A0A0;
-}
-
-.login__link {
-  color: #3456F3;
-  text-decoration: none;
-}
-
-.login__link:hover {
-  cursor: pointer;
-  opacity: 70%;
-}
-
 @media screen and (max-width: 1023px) {
   .login {
     padding-top: 228px;
@@ -48,9 +23,5 @@
   .login {
     width: 260px;
     padding-top: 42px;
-  }
-
-  .login__nav {
-    font-size: 12px;
   }
 }

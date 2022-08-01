@@ -1,14 +1,9 @@
-import { Link } from 'react-router-dom';
-
-function Form({children, button, linkpath, linkname, linkQuestion}) {
+function Form({name, children, buttonName, buttonState}) {
   return (
-    <form className="form">
+    <form className={name === 'profile' ? "form form_type_profile" : "form"}>
       {children}
-      <button type="submit" className="form__button">{button}</button>
-      <nav className='form__nav'>
-        <p className='form__subtitle'>{linkQuestion}</p>
-        <Link to={linkpath} className='form__link'>{linkname}</Link>
-      </nav>
+      <span className="form__server-error">Ощибка сервера</span>
+      <button type="submit" className="form__button" disabled={buttonState} >{buttonName}</button>
     </form>
   )
 }
