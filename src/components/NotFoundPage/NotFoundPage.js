@@ -1,11 +1,17 @@
 import { Link, useNavigate } from 'react-router-dom';
 
 function NotFoundPage() {
-  const navigate = useNavigate();
+  let navigate = useNavigate();
 
   const handleClickBack = () => {
-    navigate(-1);
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/', { replace: true });
+    }
   }
+
+  console.log(navigate(-1));
 
   return (
     <section className="not-found-page">
