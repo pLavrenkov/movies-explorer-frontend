@@ -13,7 +13,7 @@ function SearchForm() {
       <div className="search-form__bar">
         <div className="search-form__input-container">
           <span className="search-form__image" />
-          <input className="search-form__input" placeholder="Фильмы"></input>
+          <input className="search-form__input" placeholder="Фильм"></input>
           <button className="search-form__button-search"></button>
         </div>
         <div className="search-form__checkbox-container">

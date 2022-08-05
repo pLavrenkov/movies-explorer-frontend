@@ -9,7 +9,7 @@ function Movies() {
   return (
     <section className="movies">
       <Header />
-      <SearchForm></SearchForm>
+      <SearchForm />
       <MoviesCardList movies={moviesBD} moviesPath={moviesPath} />
       <button type="submit" className="movies__button">Ещё</button>
       <Footer />

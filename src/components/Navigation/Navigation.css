@@ -286,6 +286,14 @@
     grid-gap: 14px;
   }
 
+  .navigation__bar_type_auth-page {
+    grid-template-columns: auto 54px;
+  }
+
+  .navigatiion__open-button {
+    grid-column: 2;
+  }
+
   .navigation__overlay {
     display: none;
   }
