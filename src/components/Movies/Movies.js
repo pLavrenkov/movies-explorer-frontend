@@ -3,15 +3,49 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
 
-import { moviesBD, moviesPath } from "../../utils/moviesBD";
+import { moviesBD, moviesPath, savedMoviesBD } from "../../utils/moviesBD";
+import { useEffect, useState } from "react";
 
 function Movies() {
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [counter, setCounter] = useState(0);
+  const [step, setStep] = useState(3);
+
+  const windowWidthDetect = () => {
+    setWindowWidth(window.innerWidth);
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', windowWidthDetect);
+    if (windowWidth <= 767) {
+      setStep(1);
+    } else if (windowWidth > 767 && window.innerWidth <= 1150) {
+      setStep(2);
+    } else {
+      setStep(3);
+    }
+    setCounter(step);
+    return () => {
+      window.removeEventListener('resize', windowWidthDetect)
+    }
+  }, [windowWidth]);
+
+  const handleCounter = () => {
+    if ((counter+ step) < moviesBD.length) {
+      setCounter(counter + step);
+    } else {
+      setCounter(moviesBD.length);
+    }
+  }
+
+  console.log(counter);
+
   return (
     <section className="movies">
       <Header />
       <SearchForm />
-      <MoviesCardList movies={moviesBD} moviesPath={moviesPath} />
-      <button type="submit" className="movies__button">Ещё</button>
+      <MoviesCardList movies={moviesBD} savedMovies={savedMoviesBD} moviesPath={moviesPath} counter={counter} />
+      <button type="submit" className={(counter !== moviesBD.length) ? "movies__button" : "movies__button movies__button_type_closed"} onClick={handleCounter}>Ещё</button>
       <Footer />
     </section>
   )

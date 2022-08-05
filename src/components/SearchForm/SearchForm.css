@@ -158,7 +158,7 @@
     height: 100%;
     width: 100%;
     display: grid;
-    grid-template-rows: auto 76px;
+    grid-template-rows: auto 120px;
     grid-template-columns: 100%;
     border-bottom: #E8E8E8 solid 2px;
     align-items: center;

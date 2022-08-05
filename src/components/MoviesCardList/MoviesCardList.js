@@ -1,11 +1,12 @@
 import MovieCard from "../MoviesCard/MoviesCard";
+import Preloader from "../Preloader/Preloader"
 
-function MoviesCardList({ movies, moviesPath }) {
-  console.log(movies);
+function MoviesCardList({ movies, savedMovies, moviesPath, counter }) {
+  const arrLength = !counter ? movies.length : counter;
   return (
-    <ul className="movies-card-list">
+    <ul className="movies-card-list" fallback={<Preloader />} >
       {movies ?
-        movies.map((item) => {
+        movies.slice(0, arrLength).map((item) => {
           return (<MovieCard
             key={item.id}
             duration={item.duration}
@@ -20,6 +21,7 @@ function MoviesCardList({ movies, moviesPath }) {
             owner
             movieId={item.id}
             nameEN={item.nameEN}
+            saved={savedMovies.some(movie => movie.id === item.id)}
           />)
         }) :
         <p className="movies-card-list__nothing-found" >Ничено не найдено</p>
