@@ -15,7 +15,7 @@ function MovieCard({
   nameEN,
   saved
 }) {
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSaved, setIsSaved] = useState(saved);
 
   const handleSaveCard = () => {
     !isSaved ? setIsSaved(true) : setIsSaved(false);
@@ -28,7 +28,7 @@ function MovieCard({
         <span className="movie-card__duration">{duration} минут</span>
       </div>
       <img src={image} alt={`Постер к фильму "${nameRU}"`} className="movie-class__image" />
-      {saved ?
+      {isSaved ?
         <button type="button" onClick={handleSaveCard} className="movie-card__button movie-card__button_type_saved">&#10003;</button> :
         <button type="button" onClick={handleSaveCard} className="movie-card__button">Сохранить</button>
       }

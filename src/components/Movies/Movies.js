@@ -7,9 +7,19 @@ import { moviesBD, moviesPath, savedMoviesBD } from "../../utils/moviesBD";
 import { useEffect, useState } from "react";
 
 function Movies() {
-  const [windowWidth, setWindowWidth] = useState(0);
-  const [counter, setCounter] = useState(0);
-  const [step, setStep] = useState(3);
+  const firstStep = (width) => {
+    if (width <= 767) {
+      return 1;
+    } else if (width > 767 && width <= 1150) {
+      return 2;
+    } else {
+      return 3;
+    }
+  }
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [counter, setCounter] = useState(firstStep(window.innerWidth));
+  const [step, setStep] = useState(counter);
 
   const windowWidthDetect = () => {
     setWindowWidth(window.innerWidth);
@@ -19,7 +29,7 @@ function Movies() {
     window.addEventListener('resize', windowWidthDetect);
     if (windowWidth <= 767) {
       setStep(1);
-    } else if (windowWidth > 767 && window.innerWidth <= 1150) {
+    } else if (windowWidth > 767 && windowWidth <= 1150) {
       setStep(2);
     } else {
       setStep(3);
@@ -31,7 +41,7 @@ function Movies() {
   }, [windowWidth]);
 
   const handleCounter = () => {
-    if ((counter+ step) < moviesBD.length) {
+    if ((counter + step) < moviesBD.length) {
       setCounter(counter + step);
     } else {
       setCounter(moviesBD.length);
