@@ -11,11 +11,11 @@ function SearchForm() {
   return (
     <section className="search-form">
       <div className="search-form__bar">
-        <div className="search-form__input-container">
+        <form className="search-form__input-container">
           <span className="search-form__image" />
           <input className="search-form__input" placeholder="Фильм"></input>
           <button className="search-form__button-search"></button>
-        </div>
+        </form>
         <div className="search-form__checkbox-container">
           <label htmlFor="search-form-checkbox" className="search-form__checkbox">
             <input id="search-form-checkbox" type="checkbox" className="search-form__checkbox-input" checked={isShortMovie} onChange={toggleShortMovie} />
