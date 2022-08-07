@@ -24,9 +24,15 @@
   opacity: 70%;
 }
 
+@media screen and (max-width: 1150px) {
+  .header {
+    padding: 0 30px;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .header {
-    padding: 0px 14px 0px;
+    padding: 0 14px;
     grid-template-columns: 40px auto;
   }
 

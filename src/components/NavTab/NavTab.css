@@ -1,0 +1,48 @@
+.nav-tab {
+  box-sizing: border-box;
+}
+
+.nav-tab__nav-container {
+  min-width: 308px;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-tab__btn-container {
+  width: auto;
+}
+
+.nav-tab__link {
+  text-decoration: none;
+}
+
+.nav-tab__btn {
+  width: 96px;
+  height: 36px;
+  font-weight: 500;
+  font-size: 12px;
+  background-color: #E8E8E8;
+  border: none;
+  border-radius: 10px;
+}
+
+.nav-tab__btn:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+
+@media screen and (max-width: 767px) {
+  .nav-tab__nav-container {
+    min-width: 258px;
+  }
+
+  .nav-tab__btn {
+    width: 82px;
+    height: 26px;
+    font-size: 10px;
+  }
+}

@@ -1,6 +1,8 @@
 function AboutProject() {
   return (
-    <div>about project</div>
+    <section id="about-project" className="about-project">
+      about project
+    </section>
   )
 }
 
