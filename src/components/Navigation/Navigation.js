@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function Navigation() {
-  const location = useLocation();
+function Navigation({ auth }) {
   const [isNavOpened, setIsNavOpened] = useState(false);
 
   const handleNavOpen = () => {
@@ -13,13 +12,9 @@ function Navigation() {
     setIsNavOpened(false);
   }
 
-  console.log(location.pathname);
-
-  const auth = location.pathname !== ('/signin' || '/signup');
-
   return (
     <div className='navigation'>
-      {(location.pathname === '/') &&
+      {!auth ?
         <nav className='navigation__bar navigation__bar_type_main-page'>
           <Link to={'/signup'} className='navigation__link navigation__link_type_register'>
             <span className='navigation__link-name navigation__link-name_type_register'>Регистрация</span>
@@ -27,9 +22,7 @@ function Navigation() {
           <Link to={'/signin'} className='navigation__link navigation__link_type_login'>
             <button className='navigation__login-button'>Войти</button>
           </Link>
-        </nav>
-      }
-      {(location.pathname !== '/' && (location.pathname !== '/signin') && (location.pathname !== '/signup')) &&
+        </nav> :
         <nav className='navigation__bar navigation__bar_type_auth-page'>
           <ul className={isNavOpened ? 'navigation__list navigation__list_opened' : 'navigation__list'}>
             <button className={isNavOpened ? 'navigatiion__close-button' : 'navigatiion__close-button navigation__close-button_displayed'} onClick={handleNavClose} ></button>
