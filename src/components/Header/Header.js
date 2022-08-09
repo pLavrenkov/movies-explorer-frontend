@@ -3,16 +3,15 @@ import Navigation from "../Navigation/Navigation";
 import logo from '../../images/logo.svg'
 import { useState } from 'react';
 
-function Header(classNonAuth) {
+function Header({logged}) {
   const location = useLocation();
-  const [isAuth, setIsAuth] = useState(false);
 
   return (
-    <header className={(location.pathname === '/signin' || location.pathname === '/signup') ? classNonAuth.classNonAuth : 'header'}>
+    <header className={(location.pathname === '/signin' || location.pathname === '/signup') ? 'header header_type_non-auth' : 'header'}>
       <Link to={'/'} className='header__logo'>
         <img src={logo} alt='Лого' />
       </Link>
-      <Navigation auth={isAuth} />
+      <Navigation logged={logged} />
     </header>
   )
 }

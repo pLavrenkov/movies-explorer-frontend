@@ -14,10 +14,10 @@ function AboutMe() {
         <img src={photo} alt="Фото студента" className="about-me__image" />
         <ul className="about-me__nav-bar">
           <li className="about-me__nav-item">
-            <a href="https://vk.com/plavrenkov" className="about-me__link">ВКонтакте</a>
+            <a href="https://vk.com/plavrenkov" target="_blank" rel="noreferrer" className="about-me__link">ВКонтакте</a>
           </li>
           <li className="about-me__nav-item">
-            <a href="https://github.com/pLavrenkov" className="about-me__link">GutHub</a>
+            <a href="https://github.com/pLavrenkov" target="_blank" rel="noreferrer" className="about-me__link">GutHub</a>
           </li>
         </ul>
       </div>

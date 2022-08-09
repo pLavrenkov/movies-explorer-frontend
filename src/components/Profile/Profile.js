@@ -27,7 +27,6 @@ function Profile() {
 
   return (
     <>
-      <Header />
       <section className="profile">
         <h1 className='profile__title'>Привет, {user.name}!</h1>
         <Form name={'profile'} buttonName={'Сохранить'} buttonState={isButtonDisabled}>

@@ -6,7 +6,7 @@
   font-family: 'Inter', Arial, Helvetica, sans-serif;
 }
 
-.mainpage {
+.page {
   min-height: 100vh;
   max-width: 1280px;
   margin: 0 auto;
@@ -18,3 +18,11 @@
   position: relative;
 }
 
+.page-content {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
+}

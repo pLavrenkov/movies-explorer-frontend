@@ -5,6 +5,10 @@
   justify-self: end;
 }
 
+.navigation_type_hidden {
+  display: none;
+}
+
 .navigation__bar {
   width: 100%;
   display: grid;
@@ -96,7 +100,6 @@
   opacity: 70%;
 }
 
-
 .navigatiion__open-button {
   width: 44px;
   height: 44px;
@@ -117,13 +120,14 @@
 }
 
 .navigatiion__close-button {
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   padding: 0;
   grid-column: 1;
   border: none;
   background-image: url(../../images/close_button_1.svg), url(../../images/close_button_2.svg);
-  background-size: 22px 22px;
+  background-color: #fff;
+  background-size: 18px 18px;
   background-size: contain;
   background-repeat: no-repeat;
   background-color: none;
@@ -179,15 +183,16 @@
 @media screen and (max-width: 1150px) {
   .navigation__list {
     width: 520px;
-    height: 100vmax;
-    position: absolute;
+    height: 100vh;
+    position: fixed;
     box-sizing: border-box;
     top: 0;
+    bottom: 0;
     right: 0;
     z-index: 3;
     background-color: #fff;
     padding: 25px 25px 92px;
-    grid-template-rows: 127px repeat(3, 22px) auto;
+    grid-template-rows: 100px repeat(3, 22px) auto;
     grid-template-columns: 22px auto 22px;
     grid-gap: 28px;
     justify-items: center;
@@ -268,6 +273,7 @@
 
   .navigatiion__close-button {
     display: block;
+    background-color: #fff;
   }
 
   .navigation__open-button_opened {

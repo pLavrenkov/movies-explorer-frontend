@@ -7,12 +7,10 @@ import { moviesPath, savedMoviesBD } from "../../utils/moviesBD";
 
 function SavedMovies() {
   return (
-    <>
-      <Header />
+    <section className="saved-movies">
       <SearchForm />
       <MoviesCardList movies={savedMoviesBD} savedMovies={[]} moviesPath={moviesPath} />
-      <Footer />
-    </>
+    </section>
   )
 }
 

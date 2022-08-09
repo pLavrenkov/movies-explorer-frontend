@@ -67,6 +67,10 @@
   outline: 0;
 }
 
+.form__input:focus {
+  outline: #3456F3 solid 1px;
+}
+
 
 .form__error {
   color: #EE3465;

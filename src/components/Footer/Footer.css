@@ -6,6 +6,10 @@
   font-size: 13px;
 }
 
+.footer_type_hidden {
+  display: none;
+}
+
 .footer__head {
   height: 95px;
   display: flex;
@@ -39,6 +43,7 @@
 
 .footer__link {
   text-decoration: none;
+  color: #000;
 }
 
 .footer__link:hover {
@@ -48,10 +53,6 @@
 
 .footer__link:active {
   color: black;
-}
-
-.footer__link:visited {
-  color: purple;
 }
 
 @media screen and (max-width: 767px) {

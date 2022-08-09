@@ -1,6 +1,4 @@
-import Footer from "../Footer/Footer";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
 
 import { moviesBD, moviesPath, savedMoviesBD } from "../../utils/moviesBD";
@@ -52,11 +50,9 @@ function Movies() {
 
   return (
     <section className="movies">
-      <Header />
       <SearchForm />
       <MoviesCardList movies={moviesBD} savedMovies={savedMoviesBD} moviesPath={moviesPath} counter={counter} />
       <button type="submit" className={(counter !== moviesBD.length) ? "movies__button" : "movies__button movies__button_type_closed"} onClick={handleCounter}>Ещё</button>
-      <Footer />
     </section>
   )
 }

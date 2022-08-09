@@ -55,7 +55,7 @@
   border-bottom: #EE3465 solid 1px;
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1150px) {
   .profile__title {
     padding: 236px 0 96px;
   }
