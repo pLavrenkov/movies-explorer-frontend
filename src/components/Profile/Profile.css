@@ -1,6 +1,7 @@
 .profile {
   width: 410px;
   position: relative;
+  background-color: #FAFAFA;
 }
 
 .profile__title {
