@@ -21,6 +21,4 @@ const moviesFilter = (arr, isShort, ...requests) => {
   });
 };
 
-//const request = strReq.split(/[\s,.-]+/);
-
 export default moviesFilter;
