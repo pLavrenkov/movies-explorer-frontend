@@ -3,9 +3,10 @@ import Preloader from "../Preloader/Preloader"
 
 function MoviesCardList({ movies, savedMovies, moviesPath, counter }) {
   const arrLength = !counter ? movies.length : counter;
+  console.log(movies.length);
   return (
     <ul className="movies-card-list" fallback={<Preloader />} >
-      {movies ?
+      {(movies.length > 0) ?
         movies.slice(0, arrLength).map((item) => {
           return (<MovieCard
             key={item.id}
@@ -24,7 +25,7 @@ function MoviesCardList({ movies, savedMovies, moviesPath, counter }) {
             saved={savedMovies.some(movie => movie.id === item.id)}
           />)
         }) :
-        <p className="movies-card-list__nothing-found" >Ничено не найдено</p>
+        <p className="movies-card-list__nothing-found" >Ничего не найдено</p>
       }
     </ul>
 

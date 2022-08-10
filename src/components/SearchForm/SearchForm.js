@@ -1,19 +1,28 @@
 import { useState } from "react";
 
-function SearchForm() {
+function SearchForm({ isShort, handleReq }) {
   const [isShortMovie, setIsShortMovie] = useState(false);
+  const [request, setRequest] = useState('');
   const toggleShortMovie = () => {
+    isShort();
     setIsShortMovie(!isShortMovie);
   }
-  console.log(isShortMovie);
 
+  const handleRequest = (event) => {
+    setRequest(event.target.value);
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleReq(request)
+  }
 
   return (
     <section className="search-form">
       <div className="search-form__bar">
-        <form className="search-form__input-container">
+        <form className="search-form__input-container" onSubmit={handleSubmit}>
           <span className="search-form__image" />
-          <input className="search-form__input" placeholder="Фильм" required></input>
+          <input className="search-form__input" placeholder="Фильм" required onChange={handleRequest} ></input>
           <button type="submit" className="search-form__button-search"></button>
         </form>
         <div className="search-form__checkbox-container">

@@ -4,10 +4,12 @@ import SearchForm from "../SearchForm/SearchForm";
 import { moviesBD, moviesPath, savedMoviesBD } from "../../utils/moviesBD";
 import { useEffect, useState } from "react";
 
+import  moviesFilter  from "../../utils/movies-filter";
+
 function Movies() {
   const firstStep = (width) => {
     if (width <= 767) {
-      return 1;
+      return 5;
     } else if (width > 767 && width <= 1150) {
       return 2;
     } else {
@@ -18,6 +20,8 @@ function Movies() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [counter, setCounter] = useState(firstStep(window.innerWidth));
   const [step, setStep] = useState(counter);
+  const [isShortMovie, setIsShortMovie] = useState(false);
+  const [reqMovies, setReqMovies] = useState('');
 
   const windowWidthDetect = () => {
     setWindowWidth(window.innerWidth);
@@ -26,7 +30,7 @@ function Movies() {
   useEffect(() => {
     window.addEventListener('resize', windowWidthDetect);
     if (windowWidth <= 767) {
-      setStep(1);
+      setStep(5);
     } else if (windowWidth > 767 && windowWidth <= 1150) {
       setStep(2);
     } else {
@@ -39,20 +43,31 @@ function Movies() {
   }, [windowWidth]);
 
   const handleCounter = () => {
-    if ((counter + step) < moviesBD.length) {
+    if ((counter + step) < movies.length) {
       setCounter(counter + step);
     } else {
-      setCounter(moviesBD.length);
+      setCounter(movies.length);
     }
   }
+
+  const toggleShortMovie = () => {
+    setIsShortMovie(!isShortMovie);
+  }
+
+  const handleMoviesRequest = (req) => {
+    setReqMovies(req);
+    setCounter(firstStep(window.innerWidth));
+  }
+
+  const movies = moviesFilter(moviesBD, isShortMovie, ...reqMovies.split(/[\s,.-]+/))
 
   console.log(counter);
 
   return (
     <section className="movies">
-      <SearchForm />
-      <MoviesCardList movies={moviesBD} savedMovies={savedMoviesBD} moviesPath={moviesPath} counter={counter} />
-      <button type="submit" className={(counter !== moviesBD.length) ? "movies__button" : "movies__button movies__button_type_closed"} onClick={handleCounter}>Ещё</button>
+      <SearchForm isShort={toggleShortMovie} handleReq={handleMoviesRequest} />
+      <MoviesCardList movies={movies} savedMovies={savedMoviesBD} moviesPath={moviesPath} counter={counter} />
+      <button type="submit" className={((counter === movies.length) || (counter > movies.length)) ? "movies__button movies__button_type_closed" : "movies__button"} onClick={handleCounter}>Ещё</button>
     </section>
   )
 }
