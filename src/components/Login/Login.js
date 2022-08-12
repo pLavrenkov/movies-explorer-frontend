@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import Form from "../Form/Form";
-import { useState } from 'react';
+
 import useFormValidation from '../UseFormValidation/useFormValidation';
 
 function Login() {
@@ -26,7 +26,7 @@ function Login() {
         <p className='form__set'>
           <label htmlFor='login-password' className='form__label'>Пароль</label>
           <input id='login-password' name='password' type='password' className='form__input' required placeholder='Введите пароль' onChange={handleChange}></input>
-          <span className='form__error'>errors.password</span>
+          <span className={errors.password ? 'form__error form__error_type_active' : 'form__error'}>{errors.password}</span>
         </p>
       </Form>
       <nav className='form__nav'>
