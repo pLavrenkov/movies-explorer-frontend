@@ -13,7 +13,7 @@ import Footer from '../Footer/Footer';
 import Navigation from '../Navigation/Navigation';
 
 function App() {
-  const [isLogged, setIsLoged] = useState(true);
+  const [isLogged, setIsLoged] = useState(false);
   const location = useLocation();
 
   return (
