@@ -13,18 +13,27 @@
   align-items: flex-end;
   justify-content: space-between;
   padding: 18px;
+
 }
 
 .movie-card__duration {
+  width: 70px;
   color: #A0A0A0;
   font-weight: 400;
   font-size: 13px;
+  text-align: end;
 }
 
 .movie-card__title {
+  max-height: 18px;
+  overflow: hidden;
+  display: block;
+  width: 285px;
   margin: 0;
   font-weight: 500;
   font-size: 15px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .movie-class__image {

@@ -4,16 +4,17 @@ import SearchForm from "../SearchForm/SearchForm";
 import { moviesBD, moviesPath, savedMoviesBD } from "../../utils/moviesBD";
 import { useEffect, useState } from "react";
 
-import  moviesFilter  from "../../utils/movies-filter";
+import moviesFilter from "../../utils/movies-filter";
+import { moviesApi } from '../../utils/MoviesApi';
 
 function Movies() {
   const firstStep = (width) => {
     if (width <= 767) {
       return 5;
     } else if (width > 767 && width <= 1150) {
-      return 2;
+      return 8;
     } else {
-      return 3;
+      return 12;
     }
   }
 
@@ -21,7 +22,9 @@ function Movies() {
   const [counter, setCounter] = useState(firstStep(window.innerWidth));
   const [step, setStep] = useState(counter);
   const [isShortMovie, setIsShortMovie] = useState(false);
-  const [reqMovies, setReqMovies] = useState('');
+  const [reqMovies, setReqMovies] = useState(localStorage.getItem('moviesReq'));
+  const [moviesFromBD, setMoviesFromBD] = useState(JSON.parse(localStorage.getItem('moviesBDInStorage')));
+  const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('moviesBDInStorage')));
 
   const windowWidthDetect = () => {
     setWindowWidth(window.innerWidth);
@@ -50,16 +53,35 @@ function Movies() {
     }
   }
 
+  useEffect(() => {
+    const moviesFromStorrage = localStorage.getItem('moviesBDInStorage');
+    console.log(reqMovies);
+    if (reqMovies === null || reqMovies === '') {
+      console.log(reqMovies);
+      setReqMovies('');
+      setMovies([]);
+    } else {
+      moviesFromStorrage ? setMoviesFromBD(JSON.parse(moviesFromStorrage)) :
+        moviesApi.getMovies()
+          .then((movies) => {
+            setMoviesFromBD(movies);
+            localStorage.setItem('moviesBDInStorage', JSON.stringify(movies));
+          });
+
+    }
+    setMovies(moviesFilter(moviesFromBD, isShortMovie, ...reqMovies.split(/[\s,.-]+/)));
+    console.log(movies);
+  }, [reqMovies, isShortMovie])
+
   const toggleShortMovie = () => {
     setIsShortMovie(!isShortMovie);
   }
 
   const handleMoviesRequest = (req) => {
     setReqMovies(req);
+    localStorage.setItem('moviesReq', req);
     setCounter(firstStep(window.innerWidth));
   }
-
-  const movies = moviesFilter(moviesBD, isShortMovie, ...reqMovies.split(/[\s,.-]+/))
 
   console.log(counter);
 
@@ -67,7 +89,7 @@ function Movies() {
     <section className="movies">
       <SearchForm isShort={toggleShortMovie} handleReq={handleMoviesRequest} />
       <MoviesCardList movies={movies} savedMovies={savedMoviesBD} moviesPath={moviesPath} counter={counter} />
-      <button type="submit" className={((counter === movies.length) || (counter > movies.length)) ? "movies__button movies__button_type_closed" : "movies__button"} onClick={handleCounter}>Ещё</button>
+      <button type="submit" className={counter >= movies.length ? "movies__button movies__button_type_closed" : "movies__button"} onClick={handleCounter}>Ещё</button>
     </section>
   )
 }

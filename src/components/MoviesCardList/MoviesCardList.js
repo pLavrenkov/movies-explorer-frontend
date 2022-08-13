@@ -3,7 +3,7 @@ import Preloader from "../Preloader/Preloader"
 
 function MoviesCardList({ movies, savedMovies, moviesPath, counter }) {
   const arrLength = !counter ? movies.length : counter;
-  console.log(movies.length);
+  //console.log(movies.length);
   return (
     <ul className="movies-card-list" fallback={<Preloader />} >
       {(movies.length > 0) ?

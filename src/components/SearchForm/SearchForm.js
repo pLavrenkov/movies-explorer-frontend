@@ -2,11 +2,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 function SearchForm({ isShort, handleReq }) {
-  const { register, formState: { errors }, handleSubmit } = useForm();
+  const { register, formState: { errors }, watch, handleSubmit } = useForm();
   const [isShortMovie, setIsShortMovie] = useState(false);
+  const searchMoviesWatch = watch('searchMovies');
+
 
   const toggleShortMovie = () => {
-    console.log(isShort);
     isShort();
     setIsShortMovie(!isShortMovie);
   }
@@ -20,7 +21,7 @@ function SearchForm({ isShort, handleReq }) {
       <div className="search-form__bar">
         <form className="search-form__input-container" onSubmit={handleSubmit(onSubmit)}>
           <span className="search-form__image" />
-          <input className="search-form__input" {...register("searchMovies", { required: true })} placeholder="Фильм"></input>
+          <input className="search-form__input" {...register("searchMovies", { required: true })} placeholder="Фильм" value={searchMoviesWatch || ''}></input>
           <button type="submit" className="search-form__button-search"></button>
           {errors.searchMovies?.type === 'required' && <span className="search-form__error">необходимо ввести хотя бы одну букву</span>}
         </form>
