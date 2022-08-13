@@ -12,10 +12,10 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { CurrentUserContext, defaultUser } from '../../contexts/CurrentUserContext';
 
+
 function App() {
   const [isLogged, setIsLoged] = useState(true);
   const [currentUser, setCurrentUser] = useState(defaultUser);
-  const location = useLocation();
 
   return (
     <div className='body'>
