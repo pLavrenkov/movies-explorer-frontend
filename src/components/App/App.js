@@ -18,7 +18,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 function App() {
   const navigate = useNavigate();
   const [isError, setIsError] = useState(false);
-  const [isLogged, setIsLoged] = useState(true);
+  const [isLogged, setIsLoged] = useState(false);
   const [errorServer, setErrorServer] = useState('');
   const [currentUser, setCurrentUser] = useState(defaultUser);
   const [userData, setUserData] = useState({});
@@ -153,12 +153,12 @@ function App() {
           <Header logged={isLogged} />
           <main className='page-content'>
             <Routes>
-              <Route exact path="/" element={<Main />} />
               <Route element= {<ProtectedRoute isLogged={isLogged}/>}>
                 <Route path="/movies" element={<Movies />} />
                 <Route path="/saved-movies" element={<SavedMovies />} />
                 <Route path="/profile" element={<Profile handleUpdateUser={handleUpdateUser} logoutSubmit={handleLogout} errorServer={errorServer} isError={isError} />} />
               </Route>
+              <Route exact path="/" element={<Main />} />
               <Route path="/signup" element={<Register registerSubmit={handleRegister} errorServer={errorServer} isError={isError} />} />
               <Route path="/signin" element={<Login loginSubmit={handleLogin} errorServer={errorServer} isError={isError} />} />
               <Route path="*" element={<Navigate to="/not-found-page" replace={true} />} />
