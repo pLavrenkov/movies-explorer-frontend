@@ -31,7 +31,6 @@ function Movies() {
     setWindowWidth(window.innerWidth);
   }
 
-  console.log(moviesFromBD.length)
   moviesFromBD.length === 1 && moviesApi.getMovies()
     .then((movies) => {
       setMoviesFromBD(movies);
@@ -62,7 +61,6 @@ function Movies() {
   }
 
   useEffect(() => {
-    console.log(`фильмы базы: ${moviesFromBD.length}`)
     if (foundMovies.length > 0) {
       setMovies(foundMovies);
     } else {
@@ -72,17 +70,13 @@ function Movies() {
           localStorage.setItem('moviesBDInStorage', JSON.stringify(movies));
         })
     }
-    console.log(`сохраненные фильмы: ${foundMovies.length}`)
-
   }, [])
 
   useEffect(() => {
     if (reqMovies !== '') {
-      console.log(`moviesBD = ${moviesFromBD}, shortMovie = ${isShortMovie}, request = ${reqMovies}`);
       setMovies(moviesFilter(moviesFromBD, isShortMovie, ...reqMovies.split(/[\s,.-]+/)));
       localStorage.setItem('foundMovies', JSON.stringify(movies));
       setFoundMovies(movies);
-      console.log(movies);
     } else {
       setMovies([]);
     }
@@ -91,7 +85,6 @@ function Movies() {
   const toggleShortMovie = () => {
     setIsShortMovie(!isShortMovie);
     localStorage.setItem('short-movies', JSON.stringify(!isShortMovie));
-    console.log(`короткометражки в функции: ${isShortMovie}`);
   }
 
   const handleMoviesRequest = (req) => {
@@ -101,10 +94,10 @@ function Movies() {
   }
 
 
-  console.log(`Фильмы на вывод: ${movies}`);
-  console.log(`короткометражки в Movies: ${isShortMovie}`);
-  console.log(`запрос в Movies: ${reqMovies}`);
-  console.log(`сохраненные фильмы в MoviesBD: ${moviesFromBD}`);
+  //console.log(`Фильмы на вывод: ${movies}`);
+  //console.log(`короткометражки в Movies: ${isShortMovie}`);
+  //console.log(`запрос в Movies: ${reqMovies}`);
+  //console.log(`сохраненные фильмы в MoviesBD: ${moviesFromBD}`);
 
 
   return (

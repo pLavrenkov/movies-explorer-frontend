@@ -22,6 +22,7 @@ function MovieCard({
   const handleSaveCard = () => {
     !isSaved ? setIsSaved(true) : setIsSaved(false);
   }
+  console.log(trailerLink);
 
   return (
     <li className="movie-card">
@@ -29,7 +30,9 @@ function MovieCard({
         <p className="movie-card__title">{nameRU}</p>
         <span className="movie-card__duration">{duration} минут</span>
       </div>
-      <img src={image} alt={`Постер к фильму "${nameRU}"`} className="movie-class__image" />
+      <a href={trailerLink} target="_blank" rel="noreferrer">
+        <img src={image} alt={`Постер к фильму "${nameRU}"`} className="movie-class__image" />
+      </a>
       {
         location.pathname === '/movies' ?
           (isSaved ?

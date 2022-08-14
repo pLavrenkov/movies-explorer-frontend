@@ -12,6 +12,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { CurrentUserContext, defaultUser } from '../../contexts/CurrentUserContext';
 import * as mainApi from '../../utils/MainApi';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 
 function App() {
@@ -59,8 +60,6 @@ function App() {
       })
       .then((res) => {
         if (res) {
-          console.log(res.cookie);
-          localStorage.setItem('token', res.cookie.jwt);
           setUserData({
             email: email,
             id: ''
@@ -96,7 +95,56 @@ function App() {
 
   useEffect(() => {
     checkToken();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    if (isLogged) {
+      mainApi.getUser()
+        .then((userInfo) => {
+          setCurrentUser(userInfo);
+        })
+        .catch((err) => {
+          alert(`Возникла ошибка при загрузке данных пользователя ${err}`);
+        })
+    }
+  }, [isLogged])
+
+  const handleLogout = () => {
+    mainApi.logout()
+      .then((res) => {
+        console.log(res);
+        setUserData({
+          id: '',
+          email: ''
+        });
+        setIsLoged(false);
+        navigate('/', { replace: true });
+      })
+      .catch((err) => {
+        setIsError(true);
+        setErrorServer(err.message);
+        console.log(err);
+      })
+  }
+
+  const handleUpdateUser = (name, email) => {
+    mainApi.updateUser(name, email)
+      .then((newUserInfo) => {
+        console.log(newUserInfo);
+        setCurrentUser({
+          id: newUserInfo._id,
+          name: newUserInfo.name,
+          email: newUserInfo.email
+        });
+        console.log(newUserInfo);
+        console.log(currentUser);
+      })
+      .catch((err) => {
+        setIsError(true);
+        setErrorServer(err.message);
+        console.log(err);
+      });
+  }
 
   return (
     <div className='body'>
@@ -106,9 +154,11 @@ function App() {
           <main className='page-content'>
             <Routes>
               <Route exact path="/" element={<Main />} />
-              <Route path="/movies" element={<Movies />} />
-              <Route path="/saved-movies" element={<SavedMovies />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route element= {<ProtectedRoute isLogged={isLogged}/>}>
+                <Route path="/movies" element={<Movies />} />
+                <Route path="/saved-movies" element={<SavedMovies />} />
+                <Route path="/profile" element={<Profile handleUpdateUser={handleUpdateUser} logoutSubmit={handleLogout} errorServer={errorServer} isError={isError} />} />
+              </Route>
               <Route path="/signup" element={<Register registerSubmit={handleRegister} errorServer={errorServer} isError={isError} />} />
               <Route path="/signin" element={<Login loginSubmit={handleLogin} errorServer={errorServer} isError={isError} />} />
               <Route path="*" element={<Navigate to="/not-found-page" replace={true} />} />

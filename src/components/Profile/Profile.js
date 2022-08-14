@@ -1,37 +1,41 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Form from "../Form/Form";
 
 import useFormValidation from '../UseFormValidation/useFormValidation';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Profile() {
-  const user = {
-    name: 'Виталий',
-    email: 'test@test.com'
-  }
-
+function Profile({ logoutSubmit, handleUpdateUser, errorServer, isError }) {
+  const currentUser = useContext(CurrentUserContext);
   const [isOnEdit, setIsOnEdit] = useState(false);
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
+  const [name, setName] = useState(currentUser.name);
+  const [email, setEmail] = useState(currentUser.email);
+  const { values, handleChange, errors, isValid, resetForm, setValues } = useFormValidation();
 
   const handleEditButton = () => {
     setIsOnEdit(true);
   }
 
-  const { values, handleChange, errors, isValid, resetForm, setValues } = useFormValidation();
+  const handleLogoutSubmit = (event) => {
+    //event.preventDefault();
+    logoutSubmit();
+  }
 
   useEffect(() => {
     setValues({
-      name: user.name,
-      email: user.email
+      name: currentUser.name,
+      email: currentUser.email
     })
-  }, [])
+  }, [currentUser])
 
 
   const handleSubmit = (event) => {
-    console.log(`email: ${values.email}; name: ${values.name}`);
-    values.name ? setName(values.name) : setName(name);
-    values.email ? setEmail(values.email) : setEmail(user.email);
     event.preventDefault();
+    console.log(`email: ${values.email}; name: ${values.name}`);
+    handleUpdateUser(values.name, values.email)
+
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+
     resetForm();
     //event.target.reset();
     setIsOnEdit(false);
@@ -41,7 +45,7 @@ function Profile() {
     <>
       <section className="profile">
         <h1 className='profile__title'>Привет, {name}!</h1>
-        <Form name={'profile'} buttonName={'Сохранить'} buttonState={isValid} onSubmit={handleSubmit}>
+        <Form name={'profile'} buttonName={'Сохранить'} buttonState={isValid} onSubmit={handleSubmit} errorServer={errorServer} isError={isError} >
           <p className='form__set form__set_type_profile'>
             <label htmlFor='profile-name' className='form__label form__label_type_profile'>Имя</label>
             <input id='profile-name' type='text' name="name" className='form__input form__input_type_profile' onChange={handleChange} placeholder={name} value={values.name || name} ></input>
@@ -55,7 +59,7 @@ function Profile() {
         </Form>
         <div className={isOnEdit ? "profile__button-set profile__button-set_type_hidden" : "profile__button-set"}>
           <button className='profile__button' disabled={!isValid} onClick={handleEditButton}>Редактировать</button>
-          <button className='profile__button profile__button_type_logout'>Выйти из аккаунта</button>
+          <button type="button" className='profile__button profile__button_type_logout' onClick={handleLogoutSubmit}>Выйти из аккаунта</button>
         </div>
       </section>
     </>
