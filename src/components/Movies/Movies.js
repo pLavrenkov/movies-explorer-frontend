@@ -23,8 +23,9 @@ function Movies() {
   const [step, setStep] = useState(counter);
   const [isShortMovie, setIsShortMovie] = useState(false);
   const [reqMovies, setReqMovies] = useState(localStorage.getItem('moviesReq'));
-  const [moviesFromBD, setMoviesFromBD] = useState(JSON.parse(localStorage.getItem('moviesBDInStorage')));
-  const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('moviesBDInStorage')));
+  const [moviesFromBD, setMoviesFromBD] = useState([JSON.parse(localStorage.getItem('moviesBDInStorage'))]);
+  const [movies, setMovies] = useState([]);
+  const [isButtonActive, setIsButtonActive] = useState(false);
 
   const windowWidthDetect = () => {
     setWindowWidth(window.innerWidth);
@@ -55,8 +56,9 @@ function Movies() {
 
   useEffect(() => {
     const moviesFromStorrage = localStorage.getItem('moviesBDInStorage');
+    console.log(moviesFromStorrage);
     console.log(reqMovies);
-    if (reqMovies === null || reqMovies === '') {
+    if (reqMovies === null) {
       console.log(reqMovies);
       setReqMovies('');
       setMovies([]);
@@ -67,10 +69,10 @@ function Movies() {
             setMoviesFromBD(movies);
             localStorage.setItem('moviesBDInStorage', JSON.stringify(movies));
           });
-
+      setMovies(moviesFilter(moviesFromBD, isShortMovie, ...reqMovies.split(/[\s,.-]+/)));
+      console.log(movies);
     }
-    setMovies(moviesFilter(moviesFromBD, isShortMovie, ...reqMovies.split(/[\s,.-]+/)));
-    console.log(movies);
+
   }, [reqMovies, isShortMovie])
 
   const toggleShortMovie = () => {
@@ -84,12 +86,13 @@ function Movies() {
   }
 
   console.log(counter);
+  console.log(movies);
 
   return (
     <section className="movies">
       <SearchForm isShort={toggleShortMovie} handleReq={handleMoviesRequest} />
       <MoviesCardList movies={movies} savedMovies={savedMoviesBD} moviesPath={moviesPath} counter={counter} />
-      <button type="submit" className={counter >= movies.length ? "movies__button movies__button_type_closed" : "movies__button"} onClick={handleCounter}>Ещё</button>
+      <button type="submit" className={(movies === null) || (counter >= movies.length) ? "movies__button movies__button_type_closed" : "movies__button"} onClick={handleCounter}>Ещё</button>
     </section>
   )
 }

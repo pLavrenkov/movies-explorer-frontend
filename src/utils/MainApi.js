@@ -23,3 +23,38 @@ export const register = (name, email, password) => {
     credentials: 'include',
   })
 }
+
+export const login = (email, password) => {
+  return fetch(`${url}/signin`, {
+    method: 'POST',
+    headers: {
+      'Accept': "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      'email': email,
+      'password': password
+    }),
+    credentials: 'include',
+  })
+    .catch((err) => {
+      console.log(`Не удалось войти. Ошибка ${err}`)
+    })
+}
+
+export const checkToken = (token) => {
+  return fetch(`${url}/users/me`, {
+      method: 'GET',
+      headers: {
+          'Accept': "application/json",
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+      },
+      credentials: 'include',
+  })
+      .then(checkResponse)
+      .catch((err) => {
+          console.log(`Не удалось войти. Ошибка ${err}`)
+      })
+}
+

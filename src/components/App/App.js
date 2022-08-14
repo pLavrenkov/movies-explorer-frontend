@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate, Navigate } from 'react-router-dom';
 
 import Main from "../Main/Main";
@@ -20,7 +20,7 @@ function App() {
   const [isLogged, setIsLoged] = useState(true);
   const [errorServer, setErrorServer] = useState('');
   const [currentUser, setCurrentUser] = useState(defaultUser);
-  const RedirectToNotFound = <Navigate to="/not-found-page" replace={true} />
+  const [userData, setUserData] = useState({});
 
   const handleErrorServer = (error) => {
     setErrorServer({
@@ -47,6 +47,56 @@ function App() {
       })
   }
 
+  const handleLogin = (email, password) => {
+    mainApi.login(email, password)
+      .then(res => {
+        if (res.ok) {
+          setIsError(false);
+          return res.json();
+        } else {
+          throw new Error(`Возникла ошибка, не удалось войти. Код ошибки ${res.status}, тип ошибки ${res.statusText}`);
+        }
+      })
+      .then((res) => {
+        if (res) {
+          console.log(res.cookie);
+          localStorage.setItem('token', res.cookie.jwt);
+          setUserData({
+            email: email,
+            id: ''
+          })
+          setIsLoged(true);
+          navigate('/movies', { replace: true });
+        }
+      })
+      .catch((err) => {
+        setIsError(true);
+        setErrorServer(err.message);
+        console.log(err);
+      })
+  }
+
+  const checkToken = () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      mainApi.checkToken(token)
+        .then(res => {
+          setUserData({
+            id: res._id,
+            email: res.email
+          });
+          setIsLoged(true);
+          navigate('/movies', { replace: true });
+        })
+        .catch((err) => {
+          console.log(`Не удалось проверить токен. ${err}`)
+        })
+    }
+  }
+
+  useEffect(() => {
+    checkToken();
+  }, [])
 
   return (
     <div className='body'>
@@ -60,7 +110,7 @@ function App() {
               <Route path="/saved-movies" element={<SavedMovies />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/signup" element={<Register registerSubmit={handleRegister} errorServer={errorServer} isError={isError} />} />
-              <Route path="/signin" element={<Login />} />
+              <Route path="/signin" element={<Login loginSubmit={handleLogin} errorServer={errorServer} isError={isError} />} />
               <Route path="*" element={<Navigate to="/not-found-page" replace={true} />} />
               <Route path="/not-found-page" element={<NotFoundPage />} />
             </Routes>
