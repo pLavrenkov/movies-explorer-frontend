@@ -1,9 +1,12 @@
 import MovieCard from "../MoviesCard/MoviesCard";
 import Preloader from "../Preloader/Preloader"
+import { useContext } from "react";
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function MoviesCardList({ movies, savedMovies, moviesPath, counter }) {
+function MoviesCardList({ movies, savedMovies, moviesPath, counter, user }) {
+  const currentUser = useContext(CurrentUserContext);
   const arrLength = !counter ? movies.length : counter;
-  //console.log(movies.length);
+  console.log(currentUser);
   return (
     <ul className="movies-card-list" fallback={<Preloader />} >
       {(movies.length > 0) ?
@@ -19,7 +22,7 @@ function MoviesCardList({ movies, savedMovies, moviesPath, counter }) {
             description={item.description}
             trailerLink={item.trailerLink}
             thumbnail={moviesPath + item.image.formats.thumbnail.url}
-            owner
+            owner={currentUser.id}
             movieId={item.id}
             nameEN={item.nameEN}
             saved={savedMovies.some(movie => movie.id === item.id)}

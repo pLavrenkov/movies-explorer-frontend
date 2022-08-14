@@ -5,9 +5,11 @@ import { useState } from 'react';
 
 function Header({logged}) {
   const location = useLocation();
+  const pages = ['/', '/movies', 'saved-movies', 'profile', ]
 
   return (
-    <header className={(location.pathname === '/signin' || location.pathname === '/signup') ? 'header header_type_non-auth' : 'header'}>
+    <header className={(location.pathname === '/not-found-page') ? 'header header_type_hidden' :
+      ((location.pathname === '/signin' || location.pathname === '/signup') ? 'header header_type_non-auth' : 'header')}>
       <Link to={'/'} className='header__logo'>
         <img src={logo} alt='Лого' />
       </Link>

@@ -14,10 +14,8 @@ export class MoviesApi {
   getMovies() {
     return fetch(this._url, {
       headers: this._headers,
-
-    }
-    )
-    .then(this._checkResponse)
+    })
+      .then(this._checkResponse)
   }
 }
 
