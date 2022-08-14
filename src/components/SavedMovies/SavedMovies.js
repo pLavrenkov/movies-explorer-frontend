@@ -21,7 +21,7 @@ function SavedMovies() {
 
   return (
     <section className="saved-movies">
-      <SearchForm isShort={toggleShortMovie} handleReq={handleMoviesRequest}/>
+      <SearchForm toggleShort={toggleShortMovie} handleReq={handleMoviesRequest} firstShort={false}/>
       <MoviesCardList movies={movies} savedMovies={[]} moviesPath={moviesPath} />
     </section>
   )

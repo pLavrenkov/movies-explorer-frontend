@@ -21,15 +21,22 @@ function Movies() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [counter, setCounter] = useState(firstStep(window.innerWidth));
   const [step, setStep] = useState(counter);
-  const [isShortMovie, setIsShortMovie] = useState(false);
-  const [reqMovies, setReqMovies] = useState(localStorage.getItem('moviesReq'));
-  const [moviesFromBD, setMoviesFromBD] = useState([JSON.parse(localStorage.getItem('moviesBDInStorage'))]);
+  const [isShortMovie, setIsShortMovie] = useState(JSON.parse(localStorage.getItem('short-movies')) || false);
+  const [reqMovies, setReqMovies] = useState(localStorage.getItem('moviesReq') || '');
+  const [moviesFromBD, setMoviesFromBD] = useState(JSON.parse(localStorage.getItem('moviesBDInStorage')) || []);
   const [movies, setMovies] = useState([]);
-  const [isButtonActive, setIsButtonActive] = useState(false);
+  const [foundMovies, setFoundMovies] = useState(JSON.parse(localStorage.getItem('foundMovies')) || []);
 
   const windowWidthDetect = () => {
     setWindowWidth(window.innerWidth);
   }
+
+  console.log(moviesFromBD.length)
+  moviesFromBD.length === 1 && moviesApi.getMovies()
+    .then((movies) => {
+      setMoviesFromBD(movies);
+      localStorage.setItem('moviesBDInStorage', JSON.stringify(movies));
+    });
 
   useEffect(() => {
     window.addEventListener('resize', windowWidthDetect);
@@ -55,28 +62,36 @@ function Movies() {
   }
 
   useEffect(() => {
-    const moviesFromStorrage = localStorage.getItem('moviesBDInStorage');
-    console.log(moviesFromStorrage);
-    console.log(reqMovies);
-    if (reqMovies === null) {
-      console.log(reqMovies);
-      setReqMovies('');
-      setMovies([]);
+    console.log(`фильмы базы: ${moviesFromBD.length}`)
+    if (foundMovies.length > 0) {
+      setMovies(foundMovies);
     } else {
-      moviesFromStorrage ? setMoviesFromBD(JSON.parse(moviesFromStorrage)) :
-        moviesApi.getMovies()
-          .then((movies) => {
-            setMoviesFromBD(movies);
-            localStorage.setItem('moviesBDInStorage', JSON.stringify(movies));
-          });
-      setMovies(moviesFilter(moviesFromBD, isShortMovie, ...reqMovies.split(/[\s,.-]+/)));
-      console.log(movies);
+      moviesApi.getMovies()
+        .then((movies) => {
+          setMoviesFromBD(movies);
+          localStorage.setItem('moviesBDInStorage', JSON.stringify(movies));
+        })
     }
+    console.log(`сохраненные фильмы: ${foundMovies.length}`)
 
+  }, [])
+
+  useEffect(() => {
+    if (reqMovies !== '') {
+      console.log(`moviesBD = ${moviesFromBD}, shortMovie = ${isShortMovie}, request = ${reqMovies}`);
+      setMovies(moviesFilter(moviesFromBD, isShortMovie, ...reqMovies.split(/[\s,.-]+/)));
+      localStorage.setItem('foundMovies', JSON.stringify(movies));
+      setFoundMovies(movies);
+      console.log(movies);
+    } else {
+      setMovies([]);
+    }
   }, [reqMovies, isShortMovie])
 
   const toggleShortMovie = () => {
     setIsShortMovie(!isShortMovie);
+    localStorage.setItem('short-movies', JSON.stringify(!isShortMovie));
+    console.log(`короткометражки в функции: ${isShortMovie}`);
   }
 
   const handleMoviesRequest = (req) => {
@@ -85,12 +100,16 @@ function Movies() {
     setCounter(firstStep(window.innerWidth));
   }
 
-  console.log(counter);
-  console.log(movies);
+
+  console.log(`Фильмы на вывод: ${movies}`);
+  console.log(`короткометражки в Movies: ${isShortMovie}`);
+  console.log(`запрос в Movies: ${reqMovies}`);
+  console.log(`сохраненные фильмы в MoviesBD: ${moviesFromBD}`);
+
 
   return (
     <section className="movies">
-      <SearchForm isShort={toggleShortMovie} handleReq={handleMoviesRequest} />
+      <SearchForm toggleShort={toggleShortMovie} handleReq={handleMoviesRequest} firstShort={isShortMovie} />
       <MoviesCardList movies={movies} savedMovies={savedMoviesBD} moviesPath={moviesPath} counter={counter} />
       <button type="submit" className={(movies === null) || (counter >= movies.length) ? "movies__button movies__button_type_closed" : "movies__button"} onClick={handleCounter}>Ещё</button>
     </section>

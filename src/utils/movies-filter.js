@@ -19,6 +19,7 @@ const moviesFilter = (arr, isShort, ...requests) => {
       return Object.values(item).some((str) => compare(str, req));
     });
   });
+
 };
 
 export default moviesFilter;

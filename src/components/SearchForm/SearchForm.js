@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-function SearchForm({ isShort, handleReq }) {
+function SearchForm({ toggleShort, handleReq, firstShort }) {
   const { register, formState: { errors }, watch, handleSubmit } = useForm();
   const [isShortMovie, setIsShortMovie] = useState(false);
   const searchMoviesWatch = watch('searchMovies');
 
+  useEffect(() => {
+    setIsShortMovie(firstShort);
+  }, []);
 
   const toggleShortMovie = () => {
-    isShort();
+    toggleShort();
     setIsShortMovie(!isShortMovie);
   }
 
