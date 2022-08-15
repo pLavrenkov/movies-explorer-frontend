@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import moviesFilter from "../../utils/movies-filter";
 import { moviesApi } from '../../utils/MoviesApi';
+import * as mainApi from '../../utils/MainApi';
 
 function Movies() {
   const firstStep = (width) => {
@@ -26,6 +27,7 @@ function Movies() {
   const [moviesFromBD, setMoviesFromBD] = useState(JSON.parse(localStorage.getItem('moviesBDInStorage')) || []);
   const [movies, setMovies] = useState([]);
   const [foundMovies, setFoundMovies] = useState(JSON.parse(localStorage.getItem('foundMovies')) || []);
+  const [savedMovies, setSavedMovies] = useState([]);
 
   const windowWidthDetect = () => {
     setWindowWidth(window.innerWidth);
@@ -70,43 +72,56 @@ function Movies() {
           localStorage.setItem('moviesBDInStorage', JSON.stringify(movies));
         })
     }
-  }, [])
+    mainApi.getSavedMovies()
+      .then((movies) => {
+        console.log(movies);
+        if (movies) {
+          setSavedMovies(movies);
+        } else {
+          setSavedMovies([]);
+        }
+        console.log(savedMovies);
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err.message}, не удалось загрузить карточки`);
+      })
+    }, [])
 
-  useEffect(() => {
-    if (reqMovies !== '') {
-      setMovies(moviesFilter(moviesFromBD, isShortMovie, ...reqMovies.split(/[\s,.-]+/)));
-      localStorage.setItem('foundMovies', JSON.stringify(movies));
-      setFoundMovies(movies);
-    } else {
-      setMovies([]);
+    useEffect(() => {
+      if (reqMovies !== '') {
+        setMovies(moviesFilter(moviesFromBD, isShortMovie, ...reqMovies.split(/[\s,.-]+/)));
+        localStorage.setItem('foundMovies', JSON.stringify(movies));
+        setFoundMovies(movies);
+      } else {
+        setMovies([]);
+      }
+    }, [reqMovies, isShortMovie])
+
+    const toggleShortMovie = () => {
+      setIsShortMovie(!isShortMovie);
+      localStorage.setItem('short-movies', JSON.stringify(!isShortMovie));
     }
-  }, [reqMovies, isShortMovie])
 
-  const toggleShortMovie = () => {
-    setIsShortMovie(!isShortMovie);
-    localStorage.setItem('short-movies', JSON.stringify(!isShortMovie));
+    const handleMoviesRequest = (req) => {
+      setReqMovies(req);
+      localStorage.setItem('moviesReq', req);
+      setCounter(firstStep(window.innerWidth));
+    }
+
+
+    //console.log(`Фильмы на вывод: ${movies}`);
+    //console.log(`короткометражки в Movies: ${isShortMovie}`);
+    //console.log(`запрос в Movies: ${reqMovies}`);
+    //console.log(`сохраненные фильмы в MoviesBD: ${moviesFromBD}`);
+
+
+    return (
+      <section className="movies">
+        <SearchForm toggleShort={toggleShortMovie} handleReq={handleMoviesRequest} firstShort={isShortMovie} />
+        <MoviesCardList movies={movies} savedMovies={savedMovies} moviesPath={moviesPath} counter={counter} />
+        <button type="submit" className={(movies === null) || (counter >= movies.length) ? "movies__button movies__button_type_closed" : "movies__button"} onClick={handleCounter}>Ещё</button>
+      </section>
+    )
   }
-
-  const handleMoviesRequest = (req) => {
-    setReqMovies(req);
-    localStorage.setItem('moviesReq', req);
-    setCounter(firstStep(window.innerWidth));
-  }
-
-
-  //console.log(`Фильмы на вывод: ${movies}`);
-  //console.log(`короткометражки в Movies: ${isShortMovie}`);
-  //console.log(`запрос в Movies: ${reqMovies}`);
-  //console.log(`сохраненные фильмы в MoviesBD: ${moviesFromBD}`);
-
-
-  return (
-    <section className="movies">
-      <SearchForm toggleShort={toggleShortMovie} handleReq={handleMoviesRequest} firstShort={isShortMovie} />
-      <MoviesCardList movies={movies} savedMovies={savedMoviesBD} moviesPath={moviesPath} counter={counter} />
-      <button type="submit" className={(movies === null) || (counter >= movies.length) ? "movies__button movies__button_type_closed" : "movies__button"} onClick={handleCounter}>Ещё</button>
-    </section>
-  )
-}
 
 export default Movies;

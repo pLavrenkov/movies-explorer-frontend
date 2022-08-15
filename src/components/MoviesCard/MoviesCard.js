@@ -14,7 +14,8 @@ function MovieCard({
   owner,
   movieId,
   nameEN,
-  saved
+  saved,
+  _id
 }) {
   const location = useLocation();
   const [isSaved, setIsSaved] = useState(saved);
@@ -22,7 +23,6 @@ function MovieCard({
   const handleSaveCard = () => {
     !isSaved ? setIsSaved(true) : setIsSaved(false);
   }
-  console.log(trailerLink);
 
   return (
     <li className="movie-card">

@@ -18,7 +18,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 function App() {
   const navigate = useNavigate();
   const [isError, setIsError] = useState(false);
-  const [isLogged, setIsLoged] = useState(false);
+  const [isLogged, setIsLoged] = useState(true);
   const [errorServer, setErrorServer] = useState('');
   const [currentUser, setCurrentUser] = useState(defaultUser);
   const [userData, setUserData] = useState({});

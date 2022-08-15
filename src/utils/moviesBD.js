@@ -366,7 +366,8 @@ export const moviesBD = [
 
 export const savedMoviesBD = [
   {
-    "id": 2,
+    "movieId": 2,
+    "_id": "movie ID All Tomorrow's Parties",
     "nameRU": "All Tomorrow's Parties",
     "nameEN": "All Tomorrow's Parties",
     "director": " Джонатан Кауэтт",
@@ -419,7 +420,8 @@ export const savedMoviesBD = [
     }
   },
   {
-    "id": 4,
+    "movieId": 4,
+    "_id": "movie ID Bassweight",
     "nameRU": "Bassweight",
     "nameEN": "Bassweight",
     "director": "Сурид Хассан",
@@ -462,7 +464,8 @@ export const savedMoviesBD = [
     }
   },
   {
-    "id": 5,
+    "movieId": 5,
+    "_id": "movie ID Taqwacore: The Birth of Punk Islam",
     "nameRU": "Taqwacore: The Birth of Punk Islam",
     "nameEN": "Taqwacore: The Birth of Punk Islam",
     "director": " Омар Маджид",
@@ -515,7 +518,8 @@ export const savedMoviesBD = [
     }
   },
   {
-    "id": 7,
+    "movieId": 7,
+    "_id": "movie ID остеры, сошедшие со стен",
     "nameRU": "Постеры, сошедшие со стен",
     "nameEN": "The Posters Came from the Walls",
     "director": "Джереми Деллер, Николас Абрахамс",
