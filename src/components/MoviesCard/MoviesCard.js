@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 function MovieCard({
@@ -18,7 +18,12 @@ function MovieCard({
   _id
 }) {
   const location = useLocation();
-  const [isSaved, setIsSaved] = useState(saved);
+  const [isSaved, setIsSaved] = useState(saved || false);
+
+  console.log(_id);
+  useEffect(() => {
+    setIsSaved(saved);
+  }, [saved])
 
   const handleSaveCard = () => {
     !isSaved ? setIsSaved(true) : setIsSaved(false);

@@ -38,7 +38,7 @@ function MoviesCardList({ movies, savedMovies, moviesPath, counter, user }) {
             movieId={item.id}
             nameEN={item.nameEN}
             saved={savedMovies.some(movie => movie.movieId === item.id)}
-            _id={findID(item.id, savedMovies)}
+            _id={(location.pathname === '/movies') ? findID(item.id, savedMovies) : item._id}
           />)
         }) :
         <p className="movies-card-list__nothing-found" >Ничего не найдено</p>

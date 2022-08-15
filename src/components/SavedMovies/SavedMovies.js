@@ -15,8 +15,8 @@ function SavedMovies() {
     console.log(savedMovies);
     mainApi.getSavedMovies()
       .then((movies) => {
+        console.log(movies);
         if (movies) {
-          console.log(movies);
           setSavedMovies(movies.sort(function (a, b) {
             if (a.createdAt > b.createdAt) {
               return -1;
