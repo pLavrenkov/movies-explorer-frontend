@@ -2,10 +2,12 @@ import MovieCard from "../MoviesCard/MoviesCard";
 import Preloader from "../Preloader/Preloader"
 import { useContext } from "react";
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import {useLocation} from 'react-router-dom';
 
 function MoviesCardList({ movies, savedMovies, moviesPath, counter, user }) {
   const currentUser = useContext(CurrentUserContext);
   const arrLength = !counter ? movies.length : counter;
+  const location = useLocation();
 
   const findID = (id, arr) => {
     let card = arr.find(item => item.movieId === id);
@@ -24,14 +26,14 @@ function MoviesCardList({ movies, savedMovies, moviesPath, counter, user }) {
           return (<MovieCard
             key={item.movieId}
             duration={item.duration}
-            image={moviesPath + item.image.url}
+            image={(location.pathname === '/movies') ? moviesPath + item.image.url : item.image}
             nameRU={item.nameRU}
             country={item.country}
             director={item.director}
             year={item.year}
             description={item.description}
             trailerLink={item.trailerLink}
-            thumbnail={moviesPath + item.image.formats.thumbnail.url}
+            thumbnail={(location.pathname === '/movies') ? moviesPath + item.image.formats.thumbnail.url : item.thumbnail}
             owner={currentUser.id}
             movieId={item.id}
             nameEN={item.nameEN}
