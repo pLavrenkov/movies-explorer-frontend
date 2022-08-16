@@ -1,6 +1,7 @@
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import { useEffect, useState } from "react";
+import Preloader from "../Preloader/Preloader";
+import { useEffect, useState, Suspense } from "react";
 
 import { moviesPath, savedMoviesBD } from "../../utils/moviesBD";
 import moviesFilter from "../../utils/movies-filter";
@@ -48,7 +49,9 @@ function SavedMovies() {
   return (
     <section className="saved-movies">
       <SearchForm toggleShort={toggleShortMovie} handleReq={handleMoviesRequest} firstShort={false} />
-      <MoviesCardList movies={movies} savedMovies={[]} moviesPath={moviesPath} />
+      <Suspense fallback={<Preloader />}>
+        <MoviesCardList movies={movies} savedMovies={[]} moviesPath={moviesPath} />
+      </Suspense>
     </section>
   )
 }

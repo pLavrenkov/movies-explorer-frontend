@@ -2,11 +2,12 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
 
 import { moviesBD, moviesPath, savedMoviesBD } from "../../utils/moviesBD";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import moviesFilter from "../../utils/movies-filter";
 import { moviesApi } from '../../utils/MoviesApi';
 import * as mainApi from '../../utils/MainApi';
+import Preloader from "../Preloader/Preloader";
 
 function Movies() {
   const firstStep = (width) => {
@@ -85,43 +86,45 @@ function Movies() {
       .catch((err) => {
         console.log(`Ошибка: ${err.message}, не удалось загрузить карточки`);
       })
-    }, [])
+  }, [])
 
-    useEffect(() => {
-      if (reqMovies !== '') {
-        setMovies(moviesFilter(moviesFromBD, isShortMovie, ...reqMovies.split(/[\s,.-]+/)));
-        localStorage.setItem('foundMovies', JSON.stringify(movies));
-        setFoundMovies(movies);
-      } else {
-        setMovies([]);
-      }
-    }, [reqMovies, isShortMovie])
-
-    const toggleShortMovie = () => {
-      setIsShortMovie(!isShortMovie);
-      localStorage.setItem('short-movies', JSON.stringify(!isShortMovie));
+  useEffect(() => {
+    if (reqMovies !== '') {
+      setMovies(moviesFilter(moviesFromBD, isShortMovie, ...reqMovies.split(/[\s,.-]+/)));
+      localStorage.setItem('foundMovies', JSON.stringify(movies));
+      setFoundMovies(movies);
+    } else {
+      setMovies([]);
     }
+  }, [reqMovies, isShortMovie])
 
-    const handleMoviesRequest = (req) => {
-      setReqMovies(req);
-      localStorage.setItem('moviesReq', req);
-      setCounter(firstStep(window.innerWidth));
-    }
+  const toggleShortMovie = () => {
+    setIsShortMovie(!isShortMovie);
+    localStorage.setItem('short-movies', JSON.stringify(!isShortMovie));
+  }
+
+  const handleMoviesRequest = (req) => {
+    setReqMovies(req);
+    localStorage.setItem('moviesReq', req);
+    setCounter(firstStep(window.innerWidth));
+  }
 
 
-    //console.log(`Фильмы на вывод: ${movies}`);
-    //console.log(`короткометражки в Movies: ${isShortMovie}`);
-    //console.log(`запрос в Movies: ${reqMovies}`);
-    //console.log(`сохраненные фильмы в MoviesBD: ${moviesFromBD}`);
+  //console.log(`Фильмы на вывод: ${movies}`);
+  //console.log(`короткометражки в Movies: ${isShortMovie}`);
+  //console.log(`запрос в Movies: ${reqMovies}`);
+  //console.log(`сохраненные фильмы в MoviesBD: ${moviesFromBD}`);
 
 
-    return (
-      <section className="movies">
-        <SearchForm toggleShort={toggleShortMovie} handleReq={handleMoviesRequest} firstShort={isShortMovie} />
+  return (
+    <section className="movies">
+      <SearchForm toggleShort={toggleShortMovie} handleReq={handleMoviesRequest} firstShort={isShortMovie} />
+      <Suspense fallback={<Preloader />}>
         <MoviesCardList movies={movies} savedMovies={savedMovies} moviesPath={moviesPath} counter={counter} />
         <button type="submit" className={(movies === null) || (counter >= movies.length) ? "movies__button movies__button_type_closed" : "movies__button"} onClick={handleCounter}>Ещё</button>
-      </section>
-    )
-  }
+      </Suspense>
+    </section>
+  )
+}
 
 export default Movies;

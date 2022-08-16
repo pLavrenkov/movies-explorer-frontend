@@ -1,5 +1,5 @@
 import MovieCard from "../MoviesCard/MoviesCard";
-import Preloader from "../Preloader/Preloader"
+
 import { useContext } from "react";
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import {useLocation} from 'react-router-dom';
@@ -20,7 +20,7 @@ function MoviesCardList({ movies, savedMovies, moviesPath, counter, user }) {
 
   console.log(currentUser);
   return (
-    <ul className="movies-card-list" fallback={<Preloader />} >
+    <ul className="movies-card-list" >
       {(movies.length > 0) ?
         movies.slice(0, arrLength).map((item) => {
           return (<MovieCard

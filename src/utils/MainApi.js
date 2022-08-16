@@ -125,7 +125,7 @@ export const saveMovie = (
   movieId,
   nameEN
 ) => {
-  return fetch(`${url}/cards`, {
+  return fetch(`${url}/movies`, {
     method: 'POST',
     headers: {
       'Accept': "application/json",
@@ -147,11 +147,11 @@ export const saveMovie = (
       nameEN: nameEN
     }),
   })
-    .then(this._checkResponse)
+    .then(checkResponse)
 }
 
 export const deleteMovie = (movieId) => {
-  return fetch(`${url}/cards/${movieId}`, {
+  return fetch(`${url}/movies/${movieId}`, {
     method: 'DELETE',
     headers: {
       'Accept': "application/json",
