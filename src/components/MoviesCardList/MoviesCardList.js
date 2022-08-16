@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import {useLocation} from 'react-router-dom';
 
-function MoviesCardList({ movies, savedMovies, moviesPath, counter, user }) {
+function MoviesCardList({ movies, savedMovies, moviesPath, counter, user, deleteMovieFormSavedMovies }) {
   const currentUser = useContext(CurrentUserContext);
   const arrLength = !counter ? movies.length : counter;
   const location = useLocation();
@@ -25,6 +25,7 @@ function MoviesCardList({ movies, savedMovies, moviesPath, counter, user }) {
         movies.slice(0, arrLength).map((item) => {
           return (<MovieCard
             key={item.movieId}
+            card={item}
             duration={item.duration}
             image={(location.pathname === '/movies') ? moviesPath + item.image.url : item.image}
             nameRU={item.nameRU}
@@ -39,6 +40,7 @@ function MoviesCardList({ movies, savedMovies, moviesPath, counter, user }) {
             nameEN={item.nameEN}
             saved={savedMovies.some(movie => movie.movieId === item.id)}
             _id={(location.pathname === '/movies') ? findID(item.id, savedMovies) : item._id}
+            deleteMovieFormSavedMovies={deleteMovieFormSavedMovies}
           />)
         }) :
         <p className="movies-card-list__nothing-found" >Ничего не найдено</p>

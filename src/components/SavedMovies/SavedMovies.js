@@ -44,13 +44,24 @@ function SavedMovies() {
     setReqMovies(req);
   }
 
+  const deleteMovieFormSavedMovies = (id) => {
+    mainApi.deleteMovie(id)
+      .then((movie) => {
+        console.log(movie);
+        setSavedMovies((state) => state.filter((c) => c._id !== movie._id ? true : false));
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err.message}, не удалить карточуку`);
+      })
+  }
+
   const movies = moviesFilter(savedMovies, isShortMovie, ...reqMovies.split(/[\s,.-]+/))
 
   return (
     <section className="saved-movies">
       <SearchForm toggleShort={toggleShortMovie} handleReq={handleMoviesRequest} firstShort={false} />
       <Suspense fallback={<Preloader />}>
-        <MoviesCardList movies={movies} savedMovies={[]} moviesPath={moviesPath} />
+        <MoviesCardList movies={movies} savedMovies={[]} moviesPath={moviesPath} deleteMovieFormSavedMovies={deleteMovieFormSavedMovies} />
       </Suspense>
     </section>
   )

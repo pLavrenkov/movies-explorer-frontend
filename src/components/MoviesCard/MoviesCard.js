@@ -16,11 +16,13 @@ function MovieCard({
   movieId,
   nameEN,
   saved,
-  _id
+  _id,
+  card,
+  deleteMovieFormSavedMovies
 }) {
   const location = useLocation();
   const [isSaved, setIsSaved] = useState(saved || false);
-  const [movId, setMovId] = useState('');
+  const [movId, setMovId] = useState(_id || '');
 
   console.log(_id);
   useEffect(() => {
@@ -57,7 +59,8 @@ function MovieCard({
   }
 
   const deleteFromMovies = () => {
-    mainApi.deleteMovie(movId)
+    console.log(card);
+    mainApi.deleteMovie(_id)
       .then((movie) => {
         console.log(movie);
         setIsSaved(false);
@@ -65,6 +68,10 @@ function MovieCard({
       .catch((err) => {
         console.log(`Произошла ошибка: ${err.message}`);
       })
+  }
+
+  const handleDeleteSavedMovie = () => {
+    deleteMovieFormSavedMovies(_id);
   }
 
   return (
@@ -81,7 +88,7 @@ function MovieCard({
           (isSaved ?
             <button type="button" onClick={deleteFromMovies} className="movie-card__button movie-card__button_type_saved">&#10003;</button> :
             <button type="button" onClick={saveMovie} className="movie-card__button">Сохранить</button>) :
-          <button type="button" onClick={handleSaveCard} className="movie-card__button">&#10006;</button>
+          <button type="button" onClick={handleDeleteSavedMovie} className="movie-card__button">&#10006;</button>
       }
     </li>
   )
