@@ -4,7 +4,7 @@ import Form from "../Form/Form";
 import useFormValidation from '../UseFormValidation/useFormValidation';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Profile({ logoutSubmit, handleUpdateUser, errorServer, isError }) {
+function Profile({ logoutSubmit, handleUpdateUser, errorServer, isError, isUpdated, message, onUpdated, setIsError }) {
   const currentUser = useContext(CurrentUserContext);
   const [isOnEdit, setIsOnEdit] = useState(false);
   const [name, setName] = useState(currentUser.name);
@@ -13,6 +13,8 @@ function Profile({ logoutSubmit, handleUpdateUser, errorServer, isError }) {
 
   const handleEditButton = () => {
     setIsOnEdit(true);
+    onUpdated(false);
+    setIsError(false);
   }
 
   const handleLogoutSubmit = (event) => {
@@ -24,7 +26,8 @@ function Profile({ logoutSubmit, handleUpdateUser, errorServer, isError }) {
     setValues({
       name: currentUser.name,
       email: currentUser.email
-    })
+    });
+    setName(currentUser.name);
   }, [currentUser])
 
 
@@ -45,7 +48,7 @@ function Profile({ logoutSubmit, handleUpdateUser, errorServer, isError }) {
     <>
       <section className="profile">
         <h1 className='profile__title'>Привет, {name}!</h1>
-        <Form name={'profile'} buttonName={'Сохранить'} buttonState={isValid} onSubmit={handleSubmit} errorServer={errorServer} isError={isError} >
+        <Form name={'profile'} buttonName={'Сохранить'} buttonState={isValid} onSubmit={handleSubmit} errorServer={errorServer} isError={isError} message={message} isUpdated={isUpdated} >
           <p className='form__set form__set_type_profile'>
             <label htmlFor='profile-name' className='form__label form__label_type_profile'>Имя</label>
             <input id='profile-name' type='text' name="name" className='form__input form__input_type_profile' onChange={handleChange} placeholder={name} value={values.name || name} ></input>

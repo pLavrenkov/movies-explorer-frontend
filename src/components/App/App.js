@@ -18,10 +18,12 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 function App() {
   const navigate = useNavigate();
   const [isError, setIsError] = useState(false);
-  const [isLogged, setIsLoged] = useState(false);
+  const [isLogged, setIsLoged] = useState(true);
   const [errorServer, setErrorServer] = useState('');
   const [currentUser, setCurrentUser] = useState(defaultUser);
   const [userData, setUserData] = useState({});
+  const [apiMessage, setApiMessage] = useState('');
+  const [isUpdateDone, setIsUpdateDone] = useState(false);
 
   const handleErrorServer = (error) => {
     setErrorServer({
@@ -35,7 +37,8 @@ function App() {
       .then(res => {
         if (res.ok) {
           setIsError(false);
-          navigate('/signin', { replace: true });
+          setIsLoged(true);
+          navigate('/', { replace: true });
           return res.json();
         } else {
           throw new Error(`Возникла ошибка, не удалось зарегистрироваться. Код ошибки ${res.status}, тип ошибки ${res.statusText}`);
@@ -138,6 +141,8 @@ function App() {
         });
         console.log(newUserInfo);
         console.log(currentUser);
+        setIsUpdateDone(true);
+        setApiMessage('Изменения профиля зарегистрированы')
       })
       .catch((err) => {
         setIsError(true);
@@ -153,10 +158,19 @@ function App() {
           <Header logged={isLogged} />
           <main className='page-content'>
             <Routes>
-              <Route element= {<ProtectedRoute isLogged={isLogged}/>}>
+              <Route element={<ProtectedRoute isLogged={isLogged} />}>
                 <Route path="/movies" element={<Movies />} />
                 <Route path="/saved-movies" element={<SavedMovies />} />
-                <Route path="/profile" element={<Profile handleUpdateUser={handleUpdateUser} logoutSubmit={handleLogout} errorServer={errorServer} isError={isError} />} />
+                <Route path="/profile" element={<Profile
+                  handleUpdateUser={handleUpdateUser}
+                  logoutSubmit={handleLogout}
+                  errorServer={errorServer}
+                  setIsError={setIsError}
+                  isError={isError}
+                  onUpdated={setIsUpdateDone}
+                  isUpdated={isUpdateDone}
+                  message={apiMessage}
+                />} />
               </Route>
               <Route exact path="/" element={<Main />} />
               <Route path="/signup" element={<Register registerSubmit={handleRegister} errorServer={errorServer} isError={isError} />} />
