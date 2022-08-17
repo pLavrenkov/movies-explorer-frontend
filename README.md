@@ -1,1 +1,13 @@
-# movies-explorer-frontend
+# movies-explorer-backend
+
+Репозиторий для приложения фронтэтда проекта `Movies Explorer` на `React` с использованием приложения `Create React Application` и со следующими возможностями: регистрация и авторизация пользователя, редактирование профиля, обработка ошибок api, сохранение и удаление карточек фильмов в базе данных, различное повидение страниц в зависимости от авторизации. 
+
+По состоянию на `08 августа 2022 года` выполнена верстка проекта в `JXS`.
+
+Макет размещен [здесь](https://1drv.ms/u/s!Ag-IgKihesjUjf4prOWKwVTgsmCCmg?e=LFQDvq).
+
+Адрес сайта в на Яндекс.Облако:
+
+адрес сервера [movies.plavrenkov.nomoredomains.xyz](https://movies.plavrenkov.nomoredomains.xyz/)
+
+IP сервера [51.250.30.55](https://51.250.30.55/)

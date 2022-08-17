@@ -1,0 +1,24 @@
+.login {
+  width: 396px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background-color: #FAFAFA;
+}
+
+.login__title {
+  margin: 0;
+  padding: 24px 0 40px;
+  font-weight: 500;
+  font-size: 24px;
+}
+
+@media screen and (max-width: 767px) {
+  .login {
+    width: 260px;
+  }
+
+  .login__title {
+    text-align: center;
+  }
+}

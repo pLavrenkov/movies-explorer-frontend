@@ -1,0 +1,121 @@
+.about-project {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 70px;
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  grid-template-columns: 1fr 1fr;
+}
+
+.about-project__title {
+  grid-row: 1;
+  grid-column: 1/3;
+  margin: 0;
+  padding: 110px 0 23px;
+  border-bottom: #000 solid 1px;
+  font-weight: 400;
+  font-size: 22px;
+}
+
+.about-project__description-container {
+  padding: 70px 20px 110px 0;
+}
+
+.about-project__subtitle {
+  margin: 0;
+  padding-bottom: 26px;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.about-progect__description {
+  margin: 0;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.about-project__time-line {
+  margin: 0;
+  border: none;
+  grid-row: 3;
+  grid-column: 1/3;
+  display: grid;
+  grid-template-rows: repeat(2, minmax(36px, auto));
+  grid-template-columns: 1fr 4fr;
+  grid-auto-flow: column;
+
+}
+
+.about-project__btn {
+  width: 100%;
+  height: 36px;
+  border: none;
+  background-color: #F2F2F2;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.about-project__btn:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+
+.about-project__btn_type_checked {
+  background-color: #3456F3;
+  color: #fff
+}
+
+.about-project__btn-name {
+  box-sizing: border-box;
+  padding: 14px 0 110px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+  font-size: 14px;
+  color: #A0A0A0;
+}
+
+@media screen and (max-width: 1150px) {
+  .about-project {
+    padding: 0 50px;
+  }
+
+  .about-progect__description {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .about-project {
+    grid-template-rows: repeat(4, auto);
+    grid-template-columns: 1fr;
+    padding: 0 18px;
+  }
+
+  .about-project__title {
+    padding: 70px 0 23px;
+    font-size: 18px;
+  }
+
+  .about-project__description-container {
+    padding: 60px 10px 0 0;
+    grid-column: 1/3;
+  }
+
+  .about-project__time-line {
+    padding-top: 56px;
+    grid-row: 4;
+    grid-template-columns: minmax(100px, 1fr) 4fr;
+  }
+
+  .about-project__btn {
+    font-size: 11px;
+  }
+
+  .about-project__btn-name {
+    font-size: 11px;
+    padding: 10px 0 70px;
+  }
+}

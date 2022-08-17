@@ -1,0 +1,161 @@
+.form {
+  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(4, minmax(89px, auto)) minmax(56px, auto);
+  grid-gap: 10px;
+}
+
+.form_type_profile {
+  grid-template-rows: repeat(3, minmax(40px, auto)) minmax(100px, auto) minmax(56px, auto);
+}
+
+.form__set {
+  margin: 0;
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  grid-gap: 5px;
+}
+
+.form__set_type_profile {
+  grid-template-columns: 100px auto;
+  grid-template-rows: 20px;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.form__set_type_profile:first-of-type {
+  border-bottom: #E8E8E8 solid 1px;
+  align-items: flex-end;
+
+}
+
+.form__label {
+  color: #A0A0A0;
+  font-size: 10px;
+}
+
+.form__label_type_profile {
+  grid-row: 1;
+  grid-column: 1;
+  height: 15px;
+  font-weight: 500;
+  font-size: 11px;
+  color: #000;
+
+}
+
+.form__input {
+  height: 46px;
+  background-color: #F4F4F4;
+  border: none;
+  border-radius: 8px;
+  padding: 0 15px;
+  font-size: 13px;
+}
+
+.form__input_type_profile {
+  grid-row: 1;
+  grid-column: 2;
+  background-color: #fff;
+  height: 15px;
+  font-weight: 400;
+  font-size: 11px;
+  color: #000;
+  text-align: end;
+  padding: 0;
+  border-radius: 0;
+  outline: 0;
+}
+
+.form__input:focus {
+  outline: #3456F3 solid 1px;
+}
+
+
+.form__error {
+  color: #EE3465;
+  font-size: 10px;
+  display: none;
+}
+
+.form__error_type_active {
+  display: block;
+}
+
+.form__error_type_profile {
+  grid-column: 2;
+  grid-row: 2;
+  text-align: end;
+}
+
+.form__server-error {
+  grid-row: 4;
+  color: #EE3465;
+  font-size: 11px;
+  margin-top: 36px;
+  text-align: center;
+  align-self: flex-end;
+}
+
+.form__button {
+  grid-row: 5;
+  margin-top: 15px;
+  padding: 0;
+  background-color: #3456F3;
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
+  border: none;
+  border-radius: 3px;
+  height: 45px;
+}
+
+.form__button:hover {
+  cursor: pointer;
+  opacity: 70%;
+}
+
+.form__button:disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+}
+
+.form__nav {
+  grid-row: 6;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 16px 0 70px;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.form__subtitle {
+  margin: 0;
+  padding-right: 8px;
+  color: #A0A0A0;
+}
+
+.form__link {
+  color: #3456F3;
+  text-decoration: none;
+}
+
+.form__link:hover {
+  cursor: pointer;
+  opacity: 70%;
+}
+
+@media screen and (max-width: 767px) {
+  .form_type_profile {
+    grid-template-rows: repeat(3, minmax(40px, auto)) minmax(300px, auto) minmax(56px, auto);
+  }
+
+  .form__button {
+    font-size: 12px;
+  }
+
+  .form__nav {
+    font-size: 11px;
+  }
+}
