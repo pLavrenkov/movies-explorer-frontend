@@ -1,5 +1,4 @@
 function Form({ name, children, buttonName, buttonState, onSubmit, errorServer, isError, isUpdated, message }) {
-  console.log(errorServer);
 
   return (
     <form className={name === 'profile' ? "form form_type_profile" : "form"} onSubmit={onSubmit}>

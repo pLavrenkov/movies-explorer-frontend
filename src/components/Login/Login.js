@@ -8,7 +8,6 @@ function Login({ loginSubmit, errorServer, isError }) {
   const { values, handleChange, errors, isValid, resetForm } = useFormValidation();
 
   const handleSubmit = (event) => {
-    console.log(`email: ${values.email}; password: ${values.password}`);
     event.preventDefault();
     loginSubmit(values.email, values.password);
     resetForm();

@@ -18,7 +18,6 @@ function MoviesCardList({ movies, savedMovies, moviesPath, counter, user, delete
     }
   };
 
-  console.log(currentUser);
   return (
     <ul className="movies-card-list" >
       {(movies.length > 0) ?

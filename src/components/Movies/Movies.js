@@ -1,7 +1,7 @@
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
 
-import { moviesBD, moviesPath, savedMoviesBD } from "../../utils/moviesBD";
+import { moviesPath } from "../../utils/moviesBD";
 import { Suspense, useEffect, useState } from "react";
 
 import moviesFilter from "../../utils/movies-filter";
@@ -75,13 +75,11 @@ function Movies() {
     }
     mainApi.getSavedMovies()
       .then((movies) => {
-        console.log(movies);
         if (movies) {
           setSavedMovies(movies);
         } else {
           setSavedMovies([]);
         }
-        console.log(savedMovies);
       })
       .catch((err) => {
         console.log(`Ошибка: ${err.message}, не удалось загрузить карточки`);
@@ -108,13 +106,6 @@ function Movies() {
     localStorage.setItem('moviesReq', req);
     setCounter(firstStep(window.innerWidth));
   }
-
-
-  //console.log(`Фильмы на вывод: ${movies}`);
-  //console.log(`короткометражки в Movies: ${isShortMovie}`);
-  //console.log(`запрос в Movies: ${reqMovies}`);
-  //console.log(`сохраненные фильмы в MoviesBD: ${moviesFromBD}`);
-
 
   return (
     <section className="movies">

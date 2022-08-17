@@ -13,10 +13,8 @@ function SavedMovies() {
   const [savedMovies, setSavedMovies] = useState([]);
 
   useEffect(() => {
-    console.log(savedMovies);
     mainApi.getSavedMovies()
       .then((movies) => {
-        console.log(movies);
         if (movies) {
           setSavedMovies(movies.sort(function (a, b) {
             if (a.createdAt > b.createdAt) {
@@ -47,7 +45,6 @@ function SavedMovies() {
   const deleteMovieFormSavedMovies = (id) => {
     mainApi.deleteMovie(id)
       .then((movie) => {
-        console.log(movie);
         setSavedMovies((state) => state.filter((c) => c._id !== movie._id ? true : false));
       })
       .catch((err) => {

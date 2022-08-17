@@ -24,14 +24,9 @@ function MovieCard({
   const [isSaved, setIsSaved] = useState(saved || false);
   const [movId, setMovId] = useState(_id || '');
 
-  console.log(_id);
   useEffect(() => {
     setIsSaved(saved);
   }, [saved])
-
-  const handleSaveCard = () => {
-    !isSaved ? setIsSaved(true) : setIsSaved(false);
-  }
 
   const saveMovie = () => {
     mainApi.saveMovie(
@@ -49,7 +44,6 @@ function MovieCard({
       nameEN
     )
       .then((movie) => {
-        console.log(movie);
         setMovId(movie._id);
         setIsSaved(true);
       })
@@ -59,10 +53,8 @@ function MovieCard({
   }
 
   const deleteFromMovies = () => {
-    console.log(card);
     mainApi.deleteMovie(_id)
       .then((movie) => {
-        console.log(movie);
         setIsSaved(false);
       })
       .catch((err) => {

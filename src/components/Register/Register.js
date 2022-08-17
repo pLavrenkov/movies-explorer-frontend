@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Form from "../Form/Form";
@@ -8,8 +7,6 @@ function Register({ registerSubmit, errorServer, isError }) {
   const { values, handleChange, errors, isValid, resetForm } = useFormValidation();
 
   const handleSubmit = (event) => {
-    console.log(`name: ${values.name}; email: ${values.email}; password: ${values.password}`);
-    console.log(isError);
     event.preventDefault();
     registerSubmit(values.name, values.email, values.password);
     resetForm();

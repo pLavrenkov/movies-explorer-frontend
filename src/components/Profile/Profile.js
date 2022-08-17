@@ -33,14 +33,10 @@ function Profile({ logoutSubmit, handleUpdateUser, errorServer, isError, isUpdat
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(`email: ${values.email}; name: ${values.name}`);
     handleUpdateUser(values.name, values.email)
-
     setName(currentUser.name);
     setEmail(currentUser.email);
-
     resetForm();
-    //event.target.reset();
     setIsOnEdit(false);
   }
 

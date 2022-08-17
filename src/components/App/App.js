@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, useLocation, useNavigate, Navigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -24,13 +24,6 @@ function App() {
   const [userData, setUserData] = useState({});
   const [apiMessage, setApiMessage] = useState('');
   const [isUpdateDone, setIsUpdateDone] = useState(false);
-
-  const handleErrorServer = (error) => {
-    setErrorServer({
-      'code': error.status,
-      'message': error.body.message
-    })
-  }
 
   const handleRegister = (name, email, password) => {
     mainApi.register(name, email, password)
@@ -107,7 +100,7 @@ function App() {
           setCurrentUser(userInfo);
         })
         .catch((err) => {
-          alert(`Возникла ошибка при загрузке данных пользователя ${err}`);
+          console.log(`Возникла ошибка при загрузке данных пользователя ${err}`);
         })
     }
   }, [isLogged])
@@ -115,7 +108,6 @@ function App() {
   const handleLogout = () => {
     mainApi.logout()
       .then((res) => {
-        console.log(res);
         setUserData({
           id: '',
           email: ''
@@ -133,14 +125,11 @@ function App() {
   const handleUpdateUser = (name, email) => {
     mainApi.updateUser(name, email)
       .then((newUserInfo) => {
-        console.log(newUserInfo);
         setCurrentUser({
           id: newUserInfo._id,
           name: newUserInfo.name,
           email: newUserInfo.email
         });
-        console.log(newUserInfo);
-        console.log(currentUser);
         setIsUpdateDone(true);
         setApiMessage('Изменения профиля зарегистрированы')
       })
