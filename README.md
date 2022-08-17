@@ -11,3 +11,5 @@
 адрес сервера [movies.plavrenkov.nomoredomains.xyz](https://movies.plavrenkov.nomoredomains.xyz/)
 
 IP сервера [51.250.30.55](https://51.250.30.55/)
+
+Pull request из ветки `level-3` в ветку `main` находится [здесь](https://github.com/pLavrenkov/movies-explorer-frontend/pull/2).
