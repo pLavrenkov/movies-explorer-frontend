@@ -48,14 +48,11 @@ export const checkToken = (token) => {
     headers: {
       'Accept': "application/json",
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
+      //"Authorization": `Bearer ${token}`,
     },
     credentials: 'include',
   })
     .then(checkResponse)
-    .catch((err) => {
-      console.log(`Не удалось войти. Ошибка ${err}`)
-    })
 }
 
 export const getUser = () => {

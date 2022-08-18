@@ -2,7 +2,7 @@ import MovieCard from "../MoviesCard/MoviesCard";
 
 import { useContext } from "react";
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import {useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function MoviesCardList({ movies, savedMovies, moviesPath, counter, user, deleteMovieFormSavedMovies }) {
   const currentUser = useContext(CurrentUserContext);
@@ -34,7 +34,7 @@ function MoviesCardList({ movies, savedMovies, moviesPath, counter, user, delete
             description={item.description}
             trailerLink={item.trailerLink}
             thumbnail={(location.pathname === '/movies') ? moviesPath + item.image.formats.thumbnail.url : item.thumbnail}
-            owner={currentUser.id}
+            owner={currentUser._id}
             movieId={item.id}
             nameEN={item.nameEN}
             saved={savedMovies.some(movie => movie.movieId === item.id)}

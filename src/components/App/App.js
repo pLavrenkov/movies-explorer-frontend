@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -30,12 +31,15 @@ function App() {
       .then(res => {
         if (res.ok) {
           setIsError(false);
-          setIsLoged(true);
-          navigate('/', { replace: true });
           return res.json();
         } else {
           throw new Error(`Возникла ошибка, не удалось зарегистрироваться. Код ошибки ${res.status}, тип ошибки ${res.statusText}`);
         }
+      })
+      .then((user) => {
+        setIsLoged(true);
+        navigate('/', { replace: true });
+        setCurrentUser(user);
       })
       .catch((err) => {
         setIsError(true);
@@ -56,10 +60,12 @@ function App() {
       })
       .then((res) => {
         if (res) {
-          setUserData({
+          setCurrentUser(res);
+
+ /*         setUserData({
             email: email,
             id: ''
-          })
+          })*/
           setIsLoged(true);
           navigate('/movies', { replace: true });
         }
@@ -71,39 +77,19 @@ function App() {
       })
   }
 
-  const checkToken = () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      mainApi.checkToken(token)
-        .then(res => {
-          setUserData({
-            id: res._id,
-            email: res.email
-          });
+  useEffect(() => {
+    mainApi.getUser()
+        .then((userInfo) => {
           setIsLoged(true);
+          setCurrentUser(userInfo);
           navigate('/movies', { replace: true });
         })
         .catch((err) => {
-          console.log(`Не удалось проверить токен. ${err}`)
+          setIsLoged(false);
+          navigate('/signin', { replace: true });
+          console.log(`Не удалось войти - пользователь не был авторизован ${err}`);
         })
-    }
-  }
-
-  useEffect(() => {
-    checkToken();
   }, []);
-
-  useEffect(() => {
-    if (isLogged) {
-      mainApi.getUser()
-        .then((userInfo) => {
-          setCurrentUser(userInfo);
-        })
-        .catch((err) => {
-          console.log(`Возникла ошибка при загрузке данных пользователя ${err}`);
-        })
-    }
-  }, [isLogged])
 
   const handleLogout = () => {
     mainApi.logout()
@@ -125,11 +111,7 @@ function App() {
   const handleUpdateUser = (name, email) => {
     mainApi.updateUser(name, email)
       .then((newUserInfo) => {
-        setCurrentUser({
-          id: newUserInfo._id,
-          name: newUserInfo.name,
-          email: newUserInfo.email
-        });
+        setCurrentUser(newUserInfo);
         setIsUpdateDone(true);
         setApiMessage('Изменения профиля зарегистрированы')
       })
@@ -139,6 +121,8 @@ function App() {
         console.log(err);
       });
   }
+
+  console.log(currentUser);
 
   return (
     <div className='body'>
