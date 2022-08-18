@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
 
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -94,10 +93,10 @@ function App() {
   const handleLogout = () => {
     mainApi.logout()
       .then((res) => {
-        setUserData({
+    /*    setUserData({
           id: '',
-          email: ''
-        });
+          email: '',
+        });*/
         setIsLoged(false);
         navigate('/', { replace: true });
       })
