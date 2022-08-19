@@ -18,7 +18,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 function App() {
   const navigate = useNavigate();
   const [isError, setIsError] = useState(false);
-  const [isLogged, setIsLoged] = useState(true);
+  const [isLogged, setIsLoged] = useState(false);
   const [errorServer, setErrorServer] = useState('');
   const [currentUser, setCurrentUser] = useState(defaultUser);
   //const [userData, setUserData] = useState({});
@@ -84,8 +84,8 @@ function App() {
           navigate('/movies', { replace: true });
         })
         .catch((err) => {
-          //setIsLoged(false);
-          //navigate('/signin', { replace: true });
+          setIsLoged(false);
+          navigate('/signin', { replace: true });
           console.log(`Не удалось войти - пользователь не был авторизован ${err}`);
         })
   }, []);

@@ -18,7 +18,6 @@ function Profile({ logoutSubmit, handleUpdateUser, errorServer, isError, isUpdat
   }
 
   const handleLogoutSubmit = (event) => {
-    //event.preventDefault();
     logoutSubmit();
   }
 
@@ -29,7 +28,6 @@ function Profile({ logoutSubmit, handleUpdateUser, errorServer, isError, isUpdat
     });
     setName(currentUser.name);
   }, [currentUser])
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -44,7 +42,7 @@ function Profile({ logoutSubmit, handleUpdateUser, errorServer, isError, isUpdat
     <>
       <section className="profile">
         <h1 className='profile__title'>Привет, {name}!</h1>
-        <Form name={'profile'} buttonName={'Сохранить'} buttonState={isValid} onSubmit={handleSubmit} errorServer={errorServer} isError={isError} message={message} isUpdated={isUpdated} >
+        <Form name={'profile'} buttonName={'Сохранить'} buttonState={isValid && !((values.name === currentUser.name) && (values.email === currentUser.email))} onSubmit={handleSubmit} errorServer={errorServer} isError={isError} message={message} isUpdated={isUpdated} >
           <p className='form__set form__set_type_profile'>
             <label htmlFor='profile-name' className='form__label form__label_type_profile'>Имя</label>
             <input id='profile-name' type='text' name="name" className='form__input form__input_type_profile' onChange={handleChange} placeholder={name} value={values.name || name} ></input>
