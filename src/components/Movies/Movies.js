@@ -109,7 +109,7 @@ function Movies() {
 
   return (
     <section className="movies">
-      <SearchForm toggleShort={toggleShortMovie} handleReq={handleMoviesRequest} firstShort={isShortMovie} />
+      <SearchForm toggleShort={toggleShortMovie} handleReq={handleMoviesRequest} firstShort={isShortMovie} reqMovies={reqMovies} />
       <Suspense fallback={<Preloader />}>
         <MoviesCardList movies={movies} savedMovies={savedMovies} moviesPath={moviesPath} counter={counter} />
         <button type="submit" className={(movies === null) || (counter >= movies.length) ? "movies__button movies__button_type_closed" : "movies__button"} onClick={handleCounter}>Ещё</button>
