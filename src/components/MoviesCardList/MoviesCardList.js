@@ -25,7 +25,7 @@ function MoviesCardList({ movies, savedMovies, moviesPath, counter, user, delete
           return (<MovieCard
             key={item.movieId}
             card={item}
-            duration={item.duration}
+            duration={(item.duration > 60) ? `${Math.floor(item.duration / 60)}ч ${item.duration % 60}м` : `${item.duration} минут`}
             image={(location.pathname === '/movies') ? moviesPath + item.image.url : item.image}
             nameRU={item.nameRU}
             country={item.country}

@@ -70,7 +70,7 @@ function MovieCard({
     <li className="movie-card">
       <div className="movie-card__header">
         <p className="movie-card__title">{nameRU}</p>
-        <span className="movie-card__duration">{duration} минут</span>
+        <span className="movie-card__duration">{duration}</span>
       </div>
       <a href={trailerLink} target="_blank" rel="noreferrer">
         <img src={image} alt={`Постер к фильму "${nameRU}"`} className="movie-class__image" />
