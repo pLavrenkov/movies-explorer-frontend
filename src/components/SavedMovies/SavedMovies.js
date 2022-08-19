@@ -3,7 +3,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import { useEffect, useState, Suspense } from "react";
 
-import { moviesPath, savedMoviesBD } from "../../utils/moviesBD";
+import { moviesPath } from "../../utils/moviesBD";
 import moviesFilter from "../../utils/movies-filter";
 import * as mainApi from '../../utils/MainApi';
 
