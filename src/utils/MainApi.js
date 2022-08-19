@@ -1,4 +1,4 @@
-const url = 'https://api.movies.plavrenkov.nomoredomains.xyz';
+export const url = 'https://api.movies.plavrenkov.nomoredomains.xyz';
 
 const checkResponse = (res) => {
   if (res.ok) {

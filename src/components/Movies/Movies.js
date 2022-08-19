@@ -77,6 +77,7 @@ function Movies() {
       .then((movies) => {
         if (movies) {
           setSavedMovies(movies);
+          localStorage.setItem('savedMoviesInStorage', JSON.stringify(movies));
         } else {
           setSavedMovies([]);
         }

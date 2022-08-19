@@ -21,7 +21,6 @@ function App() {
   const [isLogged, setIsLoged] = useState(false);
   const [errorServer, setErrorServer] = useState('');
   const [currentUser, setCurrentUser] = useState(defaultUser);
-  //const [userData, setUserData] = useState({});
   const [apiMessage, setApiMessage] = useState('');
   const [isUpdateDone, setIsUpdateDone] = useState(false);
 
@@ -60,11 +59,6 @@ function App() {
       .then((res) => {
         if (res) {
           setCurrentUser(res);
-
- /*         setUserData({
-            email: email,
-            id: ''
-          })*/
           setIsLoged(true);
           navigate('/movies', { replace: true });
         }
@@ -93,10 +87,6 @@ function App() {
   const handleLogout = () => {
     mainApi.logout()
       .then((res) => {
-    /*    setUserData({
-          id: '',
-          email: '',
-        });*/
         setIsLoged(false);
         navigate('/', { replace: true });
       })
@@ -120,8 +110,6 @@ function App() {
         console.log(err);
       });
   }
-
-  console.log(currentUser);
 
   return (
     <div className='body'>

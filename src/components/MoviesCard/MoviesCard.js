@@ -22,7 +22,6 @@ function MovieCard({
 }) {
   const location = useLocation();
   const [isSaved, setIsSaved] = useState(saved || false);
-  const [movId, setMovId] = useState(_id || '');
 
   useEffect(() => {
     setIsSaved(saved);
@@ -44,7 +43,9 @@ function MovieCard({
       nameEN
     )
       .then((movie) => {
-        setMovId(movie._id);
+        let saved = JSON.parse(localStorage.getItem('savedMoviesInStorage'));
+        saved.push(movie);
+        localStorage.setItem('savedMoviesInStorage', JSON.stringify(saved));
         setIsSaved(true);
       })
       .catch((err) => {
@@ -52,9 +53,26 @@ function MovieCard({
       })
   }
 
+  const deleteObjFromArr = (id, array) => {
+    array.forEach((obj, i) => {
+      obj._id === id && array.splice(i, 1);
+    });
+    return array;
+  };
+
   const deleteFromMovies = () => {
-    mainApi.deleteMovie(_id)
+    let saved = JSON.parse(localStorage.getItem('savedMoviesInStorage'));
+    let movieIdToDel = '';
+    saved.forEach((obj, i) => {
+      if (obj.movieId === movieId) {
+        movieIdToDel = saved[i]._id;
+        return
+      }
+    });
+    mainApi.deleteMovie(movieIdToDel)
       .then((movie) => {
+        let movies = deleteObjFromArr(movie._id, saved);
+        localStorage.setItem('savedMoviesInStorage', JSON.stringify(movies));
         setIsSaved(false);
       })
       .catch((err) => {
@@ -70,7 +88,7 @@ function MovieCard({
     <li className="movie-card">
       <div className="movie-card__header">
         <p className="movie-card__title">{nameRU}</p>
-        <span className="movie-card__duration">{duration}</span>
+        <span className="movie-card__duration">{(duration > 60) ? `${Math.floor(duration / 60)}ч ${duration % 60}м` : `${duration} минут`}</span>
       </div>
       <a href={trailerLink} target="_blank" rel="noreferrer">
         <img src={image} alt={`Постер к фильму "${nameRU}"`} className="movie-class__image" />
