@@ -1,10 +1,10 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function Footer() {
   const location = useLocation();
 
   return (
-    <footer className={((location.pathname === '/profile') || (location.pathname === '/signup') || (location.pathname === '/signin')) ? 'footer footer_type_hidden' : 'footer'}>
+    <footer className={((location.pathname === '/profile') || (location.pathname === '/signup') || (location.pathname === '/signin') || (location.pathname === '/not-found-page')) ? 'footer footer_type_hidden' : 'footer'}>
       <p className='footer__head'>Учебный проект Яндекс.Практикум х BeatFilm.</p>
       <div className='footer__link-bar'>
         <span className='footer__copyright'>&copy; 2022</span>

@@ -10,6 +10,10 @@
   background-color: #FAFAFA;
 }
 
+.header_type_hidden {
+  display: none;
+}
+
 .header_type_non-auth {
   width: 396px;
   margin: 70px 0 0;

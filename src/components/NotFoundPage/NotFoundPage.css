@@ -21,6 +21,9 @@
 }
 
 .not-found-page__link {
+  background-color: #fff;
+  padding: 0;
+  border: none;
   width: min-content;
   margin-top: 184px;
   color: #3456F3;

@@ -1,30 +1,36 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Form from "../Form/Form";
-import Header from "../Header/Header";
+import useFormValidation from '../UseFormValidation/useFormValidation';
 
-function Register() {
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+function Register({ registerSubmit, errorServer, isError }) {
+  const { values, handleChange, errors, isValid, resetForm } = useFormValidation();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    registerSubmit(values.name, values.email, values.password);
+    resetForm();
+    event.target.reset();
+  }
 
   return (
     <section className='register'>
       <h1 className='register__title'>Добро пожаловать!</h1>
-      <Form name={'register'} buttonName={'Зарегистрироваться'} buttonState={isButtonDisabled}>
+      <Form name={'register'} buttonName={'Зарегистрироваться'} buttonState={isValid} onSubmit={handleSubmit} errorServer={errorServer} isError={isError} >
         <p className='form__set'>
           <label htmlFor='register-name' className='form__label'>Имя</label>
-          <input id='register-name' type='text' className='form__input' required placeholder='Введите имя'></input>
-          <span className='form__error'></span>
+          <input id='register-name' type='text' name='name' className='form__input' required placeholder='Введите имя' autoComplete='off' onChange={handleChange}></input>
+          <span className={errors.name ? 'form__error form__error_type_active' : 'form__error'}>{errors.name}</span>
         </p>
         <p className='form__set'>
           <label htmlFor='register-email' className='form__label'>E-mail</label>
-          <input id='register-email' type='email' className='form__input' required placeholder='Введите email'></input>
-          <span className='form__error'></span>
+          <input id='register-email' type='email' name='email' className='form__input' required placeholder='Введите email' autoComplete='off' onChange={handleChange}></input>
+          <span className={errors.email ? 'form__error form__error_type_active' : 'form__error'}>{errors.email}</span>
         </p>
         <p className='form__set'>
           <label htmlFor='register-password' className='form__label'>Пароль</label>
-          <input id='register-password' type='password' className='form__input' required placeholder='Введите пароль'></input>
-          <span className='form__error'>Ошибка</span>
+          <input id='register-password' type='password' name='password' className='form__input' required placeholder='Введите пароль' autoComplete='off' onChange={handleChange}></input>
+          <span className={errors.password ? 'form__error form__error_type_active' : 'form__error'}>{errors.password}</span>
         </p>
       </Form>
       <nav className='form__nav'>
