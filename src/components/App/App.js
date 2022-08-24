@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate, useLocation } from 'react-router-dom';
 
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -17,6 +17,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isError, setIsError] = useState(false);
   const [isLogged, setIsLoged] = useState(false);
   const [errorServer, setErrorServer] = useState('');
@@ -72,16 +73,16 @@ function App() {
 
   useEffect(() => {
     mainApi.getUser()
-        .then((userInfo) => {
-          setIsLoged(true);
-          setCurrentUser(userInfo);
-          navigate('/movies', { replace: true });
-        })
-        .catch((err) => {
-          setIsLoged(false);
-          navigate('/signin', { replace: true });
-          console.log(`Не удалось войти - пользователь не был авторизован ${err}`);
-        })
+      .then((userInfo) => {
+        setIsLoged(true);
+        setCurrentUser(userInfo);
+        navigate(location, { replace: true });
+      })
+      .catch((err) => {
+        setIsLoged(false);
+        navigate('/signin', { replace: true });
+        console.log(`Не удалось войти - пользователь не был авторизован ${err}`);
+      })
   }, []);
 
   const handleLogout = () => {
